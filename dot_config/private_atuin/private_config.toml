@@ -29,7 +29,7 @@
 # update_check = true
 
 ## address of the sync server
-sync_address = "https://atuin.icb4dc0.de"
+sync_address = "https://atuin.home.timosur.com"
 
 ## how often to sync history. note that this is only triggered when a command
 ## is ran, so sync intervals may well be longer
@@ -291,8 +291,9 @@ autostart = true
 
 [ai]
 enabled = true
-endpoint = "https://atuin-ai.priv.icb4dc0.de"
+endpoint = "https://atuin-ai.home.timosur.com"
 endpoint_protocol = "oss"
+api_token = "{{ (rbw \"AtuinAI\").data.password }}"
 
 [ai.capabilities]
 enable_history_search = true

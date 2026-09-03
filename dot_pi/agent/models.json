@@ -1,35 +1,24 @@
 {
   "providers": {
     "agentgw": {
-      "baseUrl": "https://agentgw.priv.icb4dc0.de/v1",
+      "baseUrl": "https://inference.ai.home.timosur.com/v1",
       "api": "openai-completions",
       "models": [
         {
-          "id": "qwen3.6-35b-a3b",
-          "name": "Qwen 3.6 35B",
-          "contextWindow": 120000,
-          "reasoning": true
+          "id": "bonsai-27b",
+          "name": "Bonsai 27B (Ollama)"
         },
         {
-          "id": "qwen3.8-27b",
-          "reasoning": true,
-          "contextWindow": 262140,
-          "thinkingLevelMap": {
-            "low": "low",
-            "medium": "medium",
-            "high": "high",
-            "xhigh": "xhigh"
-          },
-          "compatibility": {
-            "reasoningField": "reasoning_content"
-          },
-          "preserve_thinking": true
+          "id": "claude-fable-5-1",
+          "name": "Claude Fable 5.1 (Anthropic)"
         },
         {
-          "id": "gemma-4-26b-a4b-it",
-          "name": "Gemma 4 26B",
-          "contextWindow": 65535,
-          "reasoning": true
+          "id": "gpt-5-6-luna",
+          "name": "GPT-5.6 Luna (OpenAI)"
+        },
+        {
+          "id": "gpt-5-6-sol-terra",
+          "name": "GPT-5.6 Sol Terra (OpenAI)"
         }
       ]
     }

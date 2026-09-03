@@ -5,7 +5,7 @@ alias edit='hx'
 #  Editor
 
 alias oc=opencode
-alias enp='enpass-cli -vault="$ENPASS_VAULT" -sort'
+alias enp='MASTERPW="${MASTERPW:-}" enpass-cli -vault="$ENPASS_VAULT" -sort'
 {{- if lookPath "bat" }}
 alias cat='bat'
 {{- else if lookPath "batcat" }}

@@ -1,4 +1,4 @@
-active_model = "mistral-medium-3.5"
+active_model = "gpt-5-6-sol-terra"
 vim_keybindings = false
 theme = "ansi-dark"
 disable_welcome_banner_animation = false
@@ -59,7 +59,7 @@ region = ""
 
 [[providers]]
 name = "agentgw"
-api_base = "https://agentgw.priv.icb4dc0.de/v1"
+api_base = "https://inference.ai.home.timosur.com/v1"
 api_key_env_var = ""
 api_style = "openai"
 backend = "generic"
@@ -68,6 +68,26 @@ project_id = ""
 region = ""
 
 [providers.extra_headers]
+
+[[models]]
+name = "bonsai-27b"
+provider = "agentgw"
+alias = "Bonsai 27B (Ollama)"
+
+[[models]]
+name = "claude-fable-5-1"
+provider = "agentgw"
+alias = "Claude Fable 5.1 (Anthropic)"
+
+[[models]]
+name = "gpt-5-6-luna"
+provider = "agentgw"
+alias = "GPT-5.6 Luna (OpenAI)"
+
+[[models]]
+name = "gpt-5-6-sol-terra"
+provider = "agentgw"
+alias = "GPT-5.6 Sol Terra (OpenAI)"
 
 [[models]]
 name = "mistral-vibe-cli-latest"

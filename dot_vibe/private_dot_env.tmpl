@@ -1,6 +1,6 @@
 {{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
 {{- $enpassVault := .enpassVault -}}
-{{- $mistral := output "sh" "-c" (printf "%s -vault %s -json -detailed show %s | jq -r '.[] | select(.title == %s) | .fields[] | select(.label == %s) | .value'" $enpass (shellQuote $enpassVault) (shellQuote "Mistral") (shellQuote "Mistral") (shellQuote "Vibe API Key")) | trim -}}
-{{- $agentGateway := output "sh" "-c" (printf "%s -vault %s -json -detailed show %s | jq -r '.[] | select(.title == %s) | .fields[] | select(.label == %s) | .value'" $enpass (shellQuote $enpassVault) (shellQuote "AgentGateway") (shellQuote "AgentGateway") (shellQuote "prskr")) | trim -}}
+{{- $mistral := output $enpass "-vault" $enpassVault "pass" "Mistral" | trim -}}
+{{- $agentGateway := output $enpass "-vault" $enpassVault "pass" "AgentGateway" | trim -}}
 MISTRAL_API_KEY='{{ $mistral }}'
 AGENTGW_API_KEY='{{ $agentGateway }}'

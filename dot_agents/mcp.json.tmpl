@@ -1,0 +1,11 @@
+{{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
+{{- $agentGateway := output $enpass "-vault" .enpassVault "pass" "AgentGateway" | trim -}}
+{
+  "mcpServers": {
+    "agentgateway": {
+      "url": "https://mcp.ai.home.timosur.com/mcp",
+      "auth": "bearer",
+      "bearerToken": "{{ $agentGateway }}"
+    }
+  }
+}

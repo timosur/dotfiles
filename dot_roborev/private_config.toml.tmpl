@@ -4,8 +4,8 @@ review_context_count = 3
 reuse_review_session_lookback = 0
 {{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
 {{- $enpassVault := .enpassVault -}}
-{{- $roborevUsername := output "sh" "-c" (printf "%s -vault %s -json -detailed show %s | jq -r '.[] | select(.title == %s) | .fields[] | select(.label == %s) | .value'" $enpass (shellQuote $enpassVault) (shellQuote "Roborev Sync") (shellQuote "Roborev Sync") (shellQuote "username")) | trim -}}
-{{- $roborevPassword := output "sh" "-c" (printf "%s -vault %s -json -detailed show %s | jq -r '.[] | select(.title == %s) | .fields[] | select(.label == %s) | .value'" $enpass (shellQuote $enpassVault) (shellQuote "Roborev Sync") (shellQuote "Roborev Sync") (shellQuote "password")) | trim -}}
+{{- $roborevUsername := output "sh" "-c" (printf "eval \"$(%s -vault %s env -field %s ROBOREV_USERNAME=%s)\" && printf '%%s' \"$ROBOREV_USERNAME\"" $enpass (shellQuote $enpassVault) (shellQuote "username") (shellQuote "Roborev Sync")) | trim -}}
+{{- $roborevPassword := output $enpass "-vault" $enpassVault "pass" "Roborev Sync" | trim -}}
 # Extra review instructions added to prompts globally.
 review_guidelines = ''
 # Default agent when no workflow-specific agent is set.

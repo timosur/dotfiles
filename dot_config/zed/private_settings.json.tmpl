@@ -1,9 +1,6 @@
 {{- if lookPath "zed" -}}
 {{- $existingSettings := dict "ssh_connections" (list) -}}
 {{- $zedSettings := (joinPath .chezmoi.homeDir ".config" "zed" "settings.json") -}}
-{{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
-{{- $enpassVault := .enpassVault -}}
-{{- $agentGateway := output $enpass "-vault" $enpassVault "pass" "AgentGateway" | trim -}}
 {
 {{- if stat $zedSettings -}}
 {{- $_ := set $existingSettings "ssh_connections" (index (include $zedSettings | fromJson ) "ssh_connections" | default (list)) -}}
@@ -242,7 +239,7 @@
       "enabled": true,
       "url": "https://mcp.ai.home.timosur.com/mcp",
       "headers": {
-        "Authorization": "Bearer {{ $agentGateway }}"
+        "Authorization": "Bearer {{ (rbw "AgentGateway").data.password }}"
       }
     },
     "postgres-context-server": {

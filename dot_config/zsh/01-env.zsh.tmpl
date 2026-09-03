@@ -19,10 +19,6 @@ export GIT_AGE_AGENT_HOST="unix:///run/user/{{ .chezmoi.uid }}/git-age-keyring-a
 {{- end }}
 # git-age #
 
-# Enpass #
-export ENPASS_VAULT={{ .enpassVault | quote }}
-# Enpass #
-
 #  Env Programs #
 export EDITOR=hx
 export BROWSER=/usr/bin/firefox

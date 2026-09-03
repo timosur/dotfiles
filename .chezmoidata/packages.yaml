@@ -15,7 +15,6 @@ packages:
       - direnv
       - dive
       - duf
-      - enpass-cli
       - fd
       - forgejo-cli
       - git

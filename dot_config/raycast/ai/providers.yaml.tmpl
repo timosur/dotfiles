@@ -1,12 +1,9 @@
-{{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
-{{- $enpassVault := .enpassVault -}}
-{{- $agentGateway := output $enpass "-vault" $enpassVault "pass" "AgentGateway" | trim -}}
 providers:
   - id: agentgw
     name: Agent Gateway
     base_url: https://inference.ai.home.timosur.com/v1
     api_keys:
-      agentgw: '{{ $agentGateway }}'
+      agentgw: '{{ (rbw "AgentGateway").data.password }}'
     additional_parameters:
       return_images: false
     # Specify all models to use with the current provider

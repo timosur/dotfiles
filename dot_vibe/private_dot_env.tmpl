@@ -1,6 +1,1 @@
-{{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
-{{- $enpassVault := .enpassVault -}}
-{{- $mistral := output $enpass "-vault" $enpassVault "pass" "Mistral" | trim -}}
-{{- $agentGateway := output $enpass "-vault" $enpassVault "pass" "AgentGateway" | trim -}}
-MISTRAL_API_KEY='{{ $mistral }}'
-AGENTGW_API_KEY='{{ $agentGateway }}'
+AGENTGW_API_KEY='{{ (rbw "AgentGateway").data.password }}'

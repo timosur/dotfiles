@@ -2,10 +2,6 @@ server_addr = '127.0.0.1:7373'
 max_workers = 4
 review_context_count = 3
 reuse_review_session_lookback = 0
-{{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
-{{- $enpassVault := .enpassVault -}}
-{{- $roborevUsername := output "sh" "-c" (printf "eval \"$(%s -vault %s env -field %s ROBOREV_USERNAME=%s)\" && printf '%%s' \"$ROBOREV_USERNAME\"" $enpass (shellQuote $enpassVault) (shellQuote "username") (shellQuote "Roborev Sync")) | trim -}}
-{{- $roborevPassword := output $enpass "-vault" $enpassVault "pass" "Roborev Sync" | trim -}}
 # Extra review instructions added to prompts globally.
 review_guidelines = ''
 # Default agent when no workflow-specific agent is set.
@@ -151,7 +147,7 @@ column_config_version = 0
 
 [sync]
 enabled = true
-postgres_url = 'postgres://{{ $roborevUsername }}:{{ $roborevPassword }}@app-cluster-18-rw.postgres.k8s.icb4dc0.de:5432/roborev'
+postgres_url = 'postgres://{{ (rbw "Roborev Sync").data.username }}:{{ (rbw "Roborev Sync").data.password }}@app-cluster-18-rw.postgres.k8s.icb4dc0.de:5432/roborev'
 interval = '5m'
 {{- $computerName := "" }}
 {{- if eq .chezmoi.os "darwin" }}

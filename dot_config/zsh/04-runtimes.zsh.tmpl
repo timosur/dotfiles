@@ -1,0 +1,37 @@
+# PNPM
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# Deno
+if [[ -d "$HOME/.deno/bin" ]]; then
+  export DENO_INSTALL="$HOME/.deno"
+  export PATH="$DENO_INSTALL/bin:$PATH"
+fi
+
+# Pyenv
+if [[ -d "$HOME/.pyenv/bin" ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
+
+# Go Version Manager
+if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
+  source "$HOME/.gvm/scripts/gvm"
+fi
+
+# Wasmer
+if [[ -s "$HOME/.wasmer/wasmer.sh" ]]; then
+  export WASMER_DIR="$HOME/.wasmer"
+  source "$WASMER_DIR/wasmer.sh"
+fi
+
+# Docker CLI completions
+if [[ -d "$HOME/.docker/completions" ]]; then
+  fpath=("$HOME/.docker/completions" $fpath)
+  autoload -Uz compinit
+  compinit
+fi

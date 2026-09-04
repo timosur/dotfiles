@@ -1,14 +1,9 @@
 setup.sh
 
 {{ if eq .chezmoi.os "darwin" }}
-*/hypr/
-*/rofi/
 .config/rtk/
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
 */Library/*
-*/AutoRaise/
-.config/hypr/
-.config/rofi/
 {{ end }}

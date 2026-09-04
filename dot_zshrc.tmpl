@@ -15,6 +15,10 @@ export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh"
 
 {{- if eq .chezmoi.os "darwin" }}
 export PATH="$PATH:/opt/homebrew/bin:/Applications/Xcode.app/Contents/Developer/usr/bin"
+{{- else if eq .machineType "ubuntu-server" }}
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 {{- end }}
 
 # scripts from ~/bin
@@ -28,11 +32,10 @@ export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpg-connect-agent updatestartuptty /bye > /dev/null
 {{- else if eq .chezmoi.os "linux" }}
-{{- if eq .chezmoi.osRelease.id "ubuntu" }}
-{{/* Dev Container */}}
+{{- if env "DEVCONTAINER" }}
+{{/* Dev containers forward SSH agent through sshd. */}}
 export SSH_AUTH_SOCK="$(sudo ss -xlnp | rg sshd | rg agent | head -n 1 | awk '{print $5}')"
 {{- else }}
-{{/* Arch Linux - Personal Desktop */}}
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpg-connect-agent updatestartuptty /bye > /dev/null

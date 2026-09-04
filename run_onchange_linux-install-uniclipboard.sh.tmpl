@@ -1,9 +1,0 @@
-{{ if eq .chezmoi.os "linux" -}}
-#!/bin/bash
-
-if command -v snap >/dev/null 2>&1; then
-    sudo snap install uniclipboard
-else
-    printf '%s\n' 'UniClipboard requires snapd. Install snapd, then rerun chezmoi apply.' >&2
-fi
-{{ end -}}

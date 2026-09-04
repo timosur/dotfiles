@@ -3,6 +3,13 @@
 data:
   name: "Timo Surmann"
 {{- if $isDevcontainer }}
+  machineType: "devcontainer"
+{{- else if eq .chezmoi.os "darwin" }}
+  machineType: "macos"
+{{- else }}
+  machineType: "ubuntu-server"
+{{- end }}
+{{- if $isDevcontainer }}
   email: dev@timosur.com
 {{ else }}
   email: {{ promptString "email" | quote }}

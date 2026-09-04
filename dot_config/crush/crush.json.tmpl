@@ -6,15 +6,30 @@
     }
   },
   "mcp": {
-    "sequential-thinking": {
+{{- if hasSuffix "@rwe.com" .email }}
+    "ado": {
       "type": "stdio",
-      "command": "docker",
+      "command": "npx",
       "args": [
-          "run",
-          "--rm",
-          "-i",
-          "mcp/sequentialthinking"
-        ]
+        "-y",
+        "@azure-devops/mcp",
+        "RWE-Renewables",
+        "-a",
+        "azcli"
+      ]
+    },
+{{- end }}
+    "gopls": {
+      "type": "stdio",
+      "command": "gopls",
+      "args": ["mcp"],
+      "disabled": true
+    },
+    "code-runner": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "mcp-server-code-runner@latest"],
+      "disabled": true
     }
   },
   "providers": {
@@ -27,6 +42,14 @@
         {
           "id": "bonsai-27b",
           "name": "Bonsai 27B (Ollama)"
+        },
+        {
+          "id": "bonsai-27b-opencode-local",
+          "name": "Bonsai 27B Local Agent (Ollama)"
+        },
+        {
+          "id": "qwen2-5-0-5b",
+          "name": "Qwen 2.5 0.5B (Ollama)"
         },
         {
           "id": "claude-fable-5-1",

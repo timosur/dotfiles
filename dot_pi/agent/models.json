@@ -9,6 +9,14 @@
           "name": "Bonsai 27B (Ollama)"
         },
         {
+          "id": "bonsai-27b-opencode-local",
+          "name": "Bonsai 27B Local Agent (Ollama)"
+        },
+        {
+          "id": "qwen2-5-0-5b",
+          "name": "Qwen 2.5 0.5B (Ollama)"
+        },
+        {
           "id": "claude-fable-5-1",
           "name": "Claude Fable 5.1 (Anthropic)"
         },

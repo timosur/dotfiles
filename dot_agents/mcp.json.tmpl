@@ -1,9 +1,20 @@
 {
   "mcpServers": {
-    "agentgateway": {
-      "url": "https://mcp.ai.home.timosur.com/mcp",
-      "auth": "bearer",
-      "bearerToken": "!rbw get AgentGateway"
+{{- if hasSuffix "@rwe.com" .email }}
+    "ado": {
+      "command": "npx",
+      "args": ["-y", "@azure-devops/mcp", "RWE-Renewables", "-a", "azcli"]
+    },
+{{- end }}
+    "gopls": {
+      "command": "gopls",
+      "args": ["mcp"],
+      "disabled": true
+    },
+    "code-runner": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-code-runner@latest"],
+      "disabled": true
     }
   }
 }

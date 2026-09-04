@@ -36,6 +36,7 @@ packages:
       - kubeconform
       - kubectl-cnpg
       - kubelogin
+      - lazygit
       - lsd
       - macchina
       - macmon

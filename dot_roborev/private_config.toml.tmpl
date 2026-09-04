@@ -5,19 +5,19 @@ reuse_review_session_lookback = 0
 # Extra review instructions added to prompts globally.
 review_guidelines = ''
 # Default agent when no workflow-specific agent is set.
-default_agent = 'claude'
+default_agent = 'opencode'
 default_backup_agent = 'opencode'
-default_backup_model = 'opencode-go/kimi-k3'
-default_model = 'claude-opus-4-8'
-refine_model = 'sonnet'
-classify_model = 'haiku'
+default_backup_model = 'agentgw/gpt-5-6-sol-terra'
+default_model = 'agentgw/gpt-5-6-sol-terra'
+refine_model = 'agentgw/gpt-5-6-sol-terra'
+classify_model = 'agentgw/gpt-5-6-sol-terra'
 # Default reasoning level for reviews: fast, standard, medium, thorough, or maximum.
 review_reasoning = 'medium'
 # Default reasoning level for refine: fast, standard, medium, thorough, or maximum.
 refine_reasoning = 'standard'
 # Default reasoning level for fix: fast, standard, medium, thorough, or maximum.
 fix_agent = 'opencode'
-fix_model = 'opencode-go/deepseek-v4-flash'
+fix_model = 'agentgw/gpt-5-6-sol-terra'
 fix_reasoning = 'standard'
 
 job_timeout_minutes = 30

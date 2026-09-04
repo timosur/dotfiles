@@ -125,7 +125,7 @@
         "skill": {
           "default": "allow"
         },
-        "mcp:mcp-server-code-runner:run-code": {
+        "mcp:code-runner:run-code": {
           "default": "allow"
         },
         "terminal": {
@@ -228,23 +228,23 @@
     }
   },
   "context_servers": {
-    "agentgateway": {
+{{- if hasSuffix "@rwe.com" .email }}
+    "ado": {
       "enabled": true,
-      "url": "https://mcp.ai.home.timosur.com/mcp",
-      "headers": {
-        "Authorization": "Bearer {{ (rbw "AgentGateway").data.password }}"
-      }
+      "command": "npx",
+      "args": ["-y", "@azure-devops/mcp", "RWE-Renewables", "-a", "azcli"]
     },
-    "postgres-context-server": {
-      "enabled": false,
-      "remote": false,
-      "settings": {}
-    },
+{{- end }}
     "gopls": {
       "enabled": false,
       "remote": true,
       "command": "gopls",
       "args": ["mcp"]
+    },
+    "code-runner": {
+      "enabled": false,
+      "command": "npx",
+      "args": ["-y", "mcp-server-code-runner@latest"]
     }
   },
   "language_models": {
@@ -259,6 +259,14 @@
           {
             "name": "bonsai-27b",
             "display_name": "Bonsai 27B (Ollama)"
+          },
+          {
+            "name": "bonsai-27b-opencode-local",
+            "display_name": "Bonsai 27B Local Agent (Ollama)"
+          },
+          {
+            "name": "qwen2-5-0-5b",
+            "display_name": "Qwen 2.5 0.5B (Ollama)"
           },
           {
             "name": "claude-fable-5-1",

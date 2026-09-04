@@ -32,6 +32,7 @@ packages:
     - kubeconform
     - kubectl-cnpg
     - kubelogin
+    - lazydocker
     - lazygit
     - lsd
     - macchina
@@ -66,6 +67,7 @@ packages:
       - dotnet-sdk10
       - ghostty
       - jordanbaird-ice
+      - orbstack
       - otty
       - netbird-ui
       - raycast

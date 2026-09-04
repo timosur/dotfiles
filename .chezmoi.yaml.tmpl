@@ -14,11 +14,7 @@ data:
 {{ else }}
   email: {{ promptString "email" | quote }}
 {{ end }}
-{{ if $isDevcontainer }}
   gpgSigningKey: A2ADB597B5C96D5A
-{{ else }}
-  gpgSigningKey: {{ promptString "signing key" | quote }}
-{{ end }}
 
 diff:
   command: delta

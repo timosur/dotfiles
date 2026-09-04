@@ -1,0 +1,40 @@
+{
+  "default": "agentgw/bonsai-27b",
+  "planModel": "agentgw/bonsai-27b",
+  "actionModel": "agentgw/bonsai-27b",
+  "providers": {
+    "agentgw": {
+      "api": "openai-completions",
+      "baseUrl": "https://inference.ai.home.timosur.com/v1",
+      "apiKey": "$AGENTGATEWAY_INFERENCE_API_KEY",
+      "models": [
+        {
+          "id": "bonsai-27b",
+          "name": "Bonsai 27B (Ollama)",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 40960,
+          "maxTokens": 2048,
+          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+        },
+        {
+          "id": "bonsai-27b-opencode-local",
+          "name": "Bonsai 27B Local Agent (Ollama)",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 16384,
+          "maxTokens": 2048,
+          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+        },
+        {
+          "id": "qwen2-5-0-5b",
+          "name": "Qwen 2.5 0.5B (Ollama)",
+          "input": ["text"],
+          "contextWindow": 40960,
+          "maxTokens": 1024,
+          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+        }
+      ]
+    }
+  }
+}

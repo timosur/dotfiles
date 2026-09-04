@@ -1,23 +1,15 @@
-{{- if eq .chezmoi.os "darwin" -}}
-# Added by OrbStack: 'orb' SSH host for Linux machines
-# This only works if it's at the top of ssh_config (before any Host blocks).
-# This won't be added again if you remove it.
-Include ~/.orbstack/ssh/config
+# Kubernetes homelab nodes
+Host homelab-amd
+    HostName 192.168.2.100
 
-Host dev
-   HostName 127.0.0.1
-   Port 32222
-   User default
-   IdentityFile ~/.orbstack/ssh/id_ed25519
-   IdentitiesOnly yes
-   UserKnownHostsFile ~/.orbstack/ssh/known_hosts
-   ProxyCommand '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper' ssh-proxy-fdpass 501 {{ .chezmoi.homeDir }}
-   HostName ubuntu.machine
-   ForwardAgent yes
-   StrictHostKeyChecking no
-   UserKnownHostsFile /dev/null
-{{- end }}
+Host homelab-amd-desktop
+    HostName 192.168.2.241
 
-Host snips
-    HostName snips.icb4dc0.de
-    Port 2222
+Host homelab-arm-large
+    HostName 192.168.2.54
+
+Host homelab-arm-small
+    HostName 192.168.2.124
+
+Host homelab-gpu
+    HostName 192.168.2.47

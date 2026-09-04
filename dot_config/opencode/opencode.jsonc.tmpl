@@ -11,7 +11,47 @@
       },
       "models": {
         "bonsai-27b": {
-          "name": "Bonsai 27B (Ollama)"
+          "name": "Bonsai 27B (Ollama)",
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 40960,
+            "input": 38912,
+            "output": 2048
+          }
+        },
+        "bonsai-27b-opencode-local": {
+          "name": "Bonsai 27B Local Agent (Ollama)",
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 16384,
+            "input": 14336,
+            "output": 2048
+          }
+        },
+        "qwen2-5-0-5b": {
+          "name": "Qwen 2.5 0.5B (Ollama)",
+          "temperature": true,
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 40960,
+            "input": 39936,
+            "output": 1024
+          }
         },
         "claude-fable-5-1": {
           "name": "Claude Fable 5.1 (Anthropic)"
@@ -25,7 +65,34 @@
       },
     }
   },
+  "agent": {
+    "local": {
+      "mode": "primary",
+      "description": "Read-only local Bonsai agent for small codebase questions.",
+      "model": "agentgw/bonsai-27b-opencode-local",
+      "steps": 3,
+      "permission": {
+        "*": "deny",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow"
+      }
+    },
+    "title": {
+      "model": "agentgw/qwen2-5-0-5b"
+    },
+    "compaction": {
+      "model": "agentgw/qwen2-5-0-5b"
+    }
+  },
   "mcp": {
+{{- if hasSuffix "@rwe.com" .email }}
+    "ado": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "-y", "@azure-devops/mcp", "RWE-Renewables", "-a", "azcli"]
+    },
+{{- end }}
     "gopls": {
       "type": "local",
       "enabled": false,

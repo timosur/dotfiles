@@ -6,13 +6,6 @@
 {{- $_ := set $existingSettings "ssh_connections" (index (include $zedSettings | fromJson ) "ssh_connections" | default (list)) -}}
 {{ end }}
   "ssh_connections":{{- index $existingSettings "ssh_connections" | toPrettyJson | indent 2 -}},
-  "git_hosting_providers": [
-    {
-      "provider": "forgejo",
-      "name": "Personal Forgejo",
-      "base_url": "https://code.icb4dc0.de"
-    }
-  ],
   "project_panel": {
     "bold_folder_labels": false,
     "diagnostic_badges": true,

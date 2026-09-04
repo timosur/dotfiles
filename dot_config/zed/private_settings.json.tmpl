@@ -1,0 +1,424 @@
+{{- if lookPath "zed" -}}
+{{- $existingSettings := dict "ssh_connections" (list) -}}
+{{- $zedSettings := (joinPath .chezmoi.homeDir ".config" "zed" "settings.json") -}}
+{{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
+{{- $enpassVault := .enpassVault -}}
+{{- $agentGateway := output "sh" "-c" (printf "%s -vault %s -json -detailed show %s | jq -r '.[] | select(.title == %s) | .fields[] | select(.label == %s) | .value'" $enpass (shellQuote $enpassVault) (shellQuote "AgentGateway") (shellQuote "AgentGateway") (shellQuote "prskr")) | trim -}}
+{
+{{- if stat $zedSettings -}}
+{{- $_ := set $existingSettings "ssh_connections" (index (include $zedSettings | fromJson ) "ssh_connections" | default (list)) -}}
+{{ end }}
+  "ssh_connections":{{- index $existingSettings "ssh_connections" | toPrettyJson | indent 2 -}},
+  "git_hosting_providers": [
+    {
+      "provider": "forgejo",
+      "name": "Personal Forgejo",
+      "base_url": "https://code.icb4dc0.de"
+    }
+  ],
+  "project_panel": {
+    "bold_folder_labels": false,
+    "diagnostic_badges": true,
+    "git_status_indicator": true
+  },
+  "git_panel": {
+    "group_by": "staging",
+    "tree_view": true
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "theme": {
+    "mode": "dark",
+    "light": "Catppuccin Latte (Blur) [Heavy]",
+    "dark": "Catppuccin Frappé (Blur) [Heavy]"
+  },
+  "icon_theme": {
+    "mode": "light",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha"
+  },
+  "agent_ui_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_family": "Cascadia Code",
+  "buffer_font_features": {
+    "liga": true,
+    "calt": true
+  },
+  "ui_font_family": "JetBrainsMono Nerd Font",
+  "outline_panel": {
+    "dock": "right"
+  },
+  "autosave": "on_focus_change",
+  "auto_signature_help": true,
+  "show_signature_help_after_edits": true,
+  "colorize_brackets": true,
+  "use_system_window_tabs": true,
+  "tabs": {
+    "file_icons": true
+  },
+  "indent_guides": {
+    "background_coloring": "indent_aware",
+    "coloring": "fixed"
+  },
+{{/*
+  check installed ones with
+  ls ~/Library/Application\ Support/Zed/extensions/installed/
+*/}}
+  "auto_install_extensions": {
+    "env": true,
+    "new-darcula": true,
+    "one-dark-pro": true,
+    "catppuccin-icons": true,
+    "lumin-theme": true,
+    "csharp": true,
+    "dockerfile": true,
+    "git-firefly": true,
+    "gotmpl": true,
+    "helm": true,
+    "html": true,
+    "http": true,
+    "kagimcp": true,
+    "mermaid": true,
+    "nginx": true,
+    "postgres-context-server": true,
+    "postgres-language-server": true,
+    "proto": true,
+    "sql": true,
+    "starlark": true,
+    "templ": true,
+    "terraform": true,
+    "toml": true,
+    "tombi": true,
+    "xml": true
+  },
+  "soft_wrap": "editor_width",
+  "minimap": {
+    "show": "always",
+    "current_line_highlight": "all"
+  },
+  "agent": {
+    "single_file_review": true,
+    "inline_assistant_model": {
+      "provider": "AgentGateway",
+      "model": "macstudio/gemma-4-26b-a4b-it",
+      "enable_thinking": false
+    },
+    "commit_message_model": {
+      "provider": "AgentGateway",
+      "model": "qwen3.6-35b-a3b",
+      "effort": "low",
+      "enable_thinking": true,
+      "speed": "fast"
+    },
+    "show_turn_stats": true,
+    "tool_permissions": {
+      "default": "allow",
+      "tools": {
+        "mcp:gopls:go_package_api": {
+          "default": "allow"
+        },
+        "mcp:gopls:go_diagnostics": {
+          "default": "allow"
+        },
+        "mcp:gopls:go_workspace": {
+          "default": "allow"
+        },
+        "fetch": {
+          "always_allow": [
+            {
+              "pattern": "^https?://raw\\.githubusercontent\\.com"
+            },
+            {
+              "pattern": "^https?://api\\.github\\.com"
+            }
+          ]
+        },
+        "skill": {
+          "default": "allow"
+        },
+        "mcp:mcp-server-code-runner:run-code": {
+          "default": "allow"
+        },
+        "terminal": {
+          "default": "allow",
+          "always_confirm": [
+            { "pattern": "sudo\\s+/" },
+            { "pattern": "git\\s+/" }
+          ]
+        },
+        "mcp:kagimcp:kagi_search_fetch": {
+          "default": "allow"
+        },
+        "mcp:kagimcp:kagi_summarizer": {
+          "default": "allow"
+        },
+        "mcp:kagimcp:kagi_fastgpt": {
+          "default": "confirm"
+        }
+      }
+    },
+    "default_profile": "ask",
+    "default_model": {
+      "provider": "AgentGateway",
+      "model": "qwen3.6-35b-a3b",
+      "effort": "low",
+      "enable_thinking": false
+    },
+    "profiles": {
+      "write": {
+        "name": "Write",
+        "tools": {
+          "copy_path": true,
+          "create_directory": true,
+          "delete_path": true,
+          "diagnostics": true,
+          "edit_file": true,
+          "fetch": true,
+          "list_directory": true,
+          "project_notifications": false,
+          "move_path": true,
+          "now": true,
+          "find_path": true,
+          "read_file": true,
+          "grep": true,
+          "terminal": true,
+          "thinking": true
+        },
+        "enable_all_context_servers": true,
+        "context_servers": {
+          "gopls": {
+            "tools": {
+              "go_workspace": true,
+              "go_vulncheck": true,
+              "go_symbol_references": true,
+              "go_search": true,
+              "go_rename_symbol": true,
+              "go_package_api": true,
+              "go_file_context": true,
+              "go_diagnostics": true
+            }
+          }
+        }
+      },
+      "ask": {
+        "name": "Ask",
+        "tools": {
+          "contents": true,
+          "diagnostics": true,
+          "fetch": true,
+          "list_directory": true,
+          "now": true,
+          "find_path": true,
+          "read_file": true,
+          "open": true,
+          "grep": true,
+          "thinking": true
+        },
+        "enable_all_context_servers": false,
+        "context_servers": {
+          "gopls": {
+            "tools": {
+              "go_workspace": true,
+              "go_vulncheck": true,
+              "go_symbol_references": true,
+              "go_search": true,
+              "go_package_api": true,
+              "go_file_context": true,
+              "go_diagnostics": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "agent_servers": {
+    "pi-acp": {
+      "type": "registry"
+    },
+    "claude-acp": {
+      "type": "registry",
+      "default_config_options": {
+        "fast": false,
+        "model": "default",
+        "mode": "acceptEdits"
+      }
+    },
+    "opencode": {
+      "type": "registry"
+    }
+  },
+  "context_servers": {
+    "agentgateway": {
+      "enabled": true,
+      "url": "https://agentgw.home.icb4dc0.de/mcp",
+      "headers": {
+        "Authorization": "Bearer {{ $agentGateway }}"
+      }
+    },
+    "postgres-context-server": {
+      "enabled": false,
+      "remote": false,
+      "settings": {}
+    },
+    "gopls": {
+      "enabled": false,
+      "remote": true,
+      "command": "gopls",
+      "args": ["mcp"]
+    }
+  },
+  "language_models": {
+    "opencode": {
+      "show_free_models": false,
+      "show_zen_models": false
+    },
+    "openai_compatible": {
+      "AgentGateway": {
+        "api_url": "https://agentgw.priv.icb4dc0.de/v1",
+        "available_models": [
+          {
+            "name": "qwen3.8-27b",
+            "display_name": "Qwen 3.8 27b",
+            "max_tokens": 262000,
+            "reasoning_effort": "low"
+          },
+          {
+            "name": "qwen3.6-35b-a3b",
+            "display_name": "Qwen 3.6 35B",
+            "max_tokens": 120000,
+            "reasoning_effort": "low"
+          },
+          {
+            "name": "gemma-4-26b-a4b-it",
+            "display_name": "Gemma 4 26B",
+            "max_tokens": 32325,
+            "reasoning_effort": "low"
+          },
+          {
+            "name": "openrouter/z-ai/glm-5.2",
+            "display_name": "Z.AI: GLM 5.1",
+            "max_tokens": 202752
+          },
+          {
+            "name": "openrouter/minimax/minimax-m3",
+            "display_name": "Minimax M2.7",
+            "max_tokens": 196608
+          }
+        ]
+      }
+    }
+  },
+  "edit_predictions": {
+    "codestral": {
+      "model": "codestral-latest"
+    },
+    "provider": "zed",
+    "mode": "eager"
+  },
+  "preview_tabs": {
+    "enable_keep_preview_on_code_navigation": true
+  },
+  "languages": {
+    "Markdown": {
+      "show_edit_predictions": false
+    },
+    "CSharp": {
+      "language_servers": ["csharp-ls", "!roslyn", "!omnisharp"],
+      "formatter": {
+        "external": {
+          "command": "csharpier",
+          "arguments": ["format"]
+        }
+      },
+      "format_on_save": "on",
+      "document_symbols": "on"
+    },
+    "Proto": {
+      "language_servers": ["buf"]
+    },
+    "Go": {
+      "inlay_hints": {
+        "enabled": true,
+        "show_type_hints": false
+      },
+      "preferred_line_length": 140,
+      "language_servers": ["gopls"]
+    },
+    "Starlark": {
+      "language_servers": ["!tilt", "starpls", "!buck2-lsp"]
+    },
+    "SQL": {
+      "formatter": {
+        "external": {
+          "command": "sql-formatter"
+        }
+      }
+    },
+    "TypeScript": {
+      "language_servers": ["typescript-ls", "!vtsls", "!typescript-language-server"]
+    },
+    "TSX": {
+      "language_servers": ["typescript-ls", "!vtsls", "!typescript-language-server"]
+    },
+    "YAML": {
+      "formatter": "language_server",
+      "ensure_final_newline_on_save": true,
+      "enable_language_server": true,
+      "format_on_save": "on"
+    }
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "ui_font_size": 14,
+  "buffer_font_size": 12.5,
+  "lsp": {
+    "gopls": {
+      "initialization_options": {
+        "gofumpt": true,
+        "usePlaceholders": true,
+        "staticcheck": true,
+        "vulncheck": "Imports",
+        "workspaceFiles": ["**/BUILD", "**/WORKSPACE", "**/*.{bzl,bazel}"],
+        "directoryFilters": [
+          "-bazel-bin",
+          "-bazel-out",
+          "-bazel-testlogs",
+          "-bazel-mypkg"
+        ]
+      }
+    },
+    "yaml-language-server": {
+      "settings": {
+        "yaml": {
+          "completion": true,
+          "schemaStore": {
+            "enable": true
+          },
+          "kubernetesCRDStore": {
+            "enable": true
+          },
+          "format": {
+            "singleQuote": true,
+            "bracketSpacing": true
+          }
+        }
+      }
+    },
+    "csharp-ls": {
+      "settings": {
+        "applyFormattingOptions": true,
+        "analyzersEnabled": true
+      }
+    }
+  },
+  "terminal": {
+    "shell": {
+      "program": "zsh"
+    },
+    "font_size": 12,
+    "font_family": "Hasklug Nerd Font Mono"
+  }
+}
+{{- end }}

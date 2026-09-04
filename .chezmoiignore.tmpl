@@ -1,0 +1,13 @@
+setup.sh
+RectangleProConfig.json
+
+{{ if eq .chezmoi.os "darwin" }}
+*/hypr/
+*/rofi/
+.config/rtk/
+{{ end }}
+
+{{ if eq .chezmoi.os "linux" }}
+*/Library/*
+*/AutoRaise/
+{{ end }}

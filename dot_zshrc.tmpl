@@ -1,0 +1,111 @@
+{{- if eq .chezmoi.os "darwin" }}
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="$HOME/Library/Caches"
+export XDG_DATA_HOME="$HOME/Library"
+export XDG_STATE_HOME="$HOME/Library/state"
+{{- else if eq .chezmoi.os "linux" }}
+export GIT_AGE_AGENT_HOST="unix:///run/user/1000/git-age-keyring-agent.sock"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+{{end}}
+
+export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh"
+
+{{- if eq .chezmoi.os "darwin" }}
+export PATH="$PATH:/opt/homebrew/bin:/Applications/Xcode.app/Contents/Developer/usr/bin"
+{{- end }}
+
+# scripts from ~/bin
+export PATH="$PATH:$HOME/.local/bin"
+
+# uv tools
+export PATH="$PATH:$HOME/bin"
+
+{{- if eq .chezmoi.os "darwin" }}
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye > /dev/null
+{{- else if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.osRelease.id "ubuntu" }}
+{{/* Dev Container */}}
+export SSH_AUTH_SOCK="$(sudo ss -xlnp | rg sshd | rg agent | head -n 1 | awk '{print $5}')"
+{{- else }}
+{{/* Arch Linux - Personal Desktop */}}
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye > /dev/null
+{{- end }}
+{{- end }}
+
+
+{{ if eq .chezmoi.os "darwin" -}}
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "ç" fzf-cd-widget
+{{- end }}
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+
+# Go
+if [ -d /usr/local/go/bin ]; then
+    export PATH="$PATH:/usr/local/go/bin"
+fi
+
+# Cargo
+if [ -d "$HOME/.cargo/bin" ]; then
+    export PATH="$PATH:$HOME/.cargo/bin"
+fi
+
+# Yarn
+if [ -d $HOME/.yarn/bin ]; then
+    export PATH="$PATH:$HOME/.yarn/bin"
+fi
+
+# Jetbrains Toolbox
+{{- if eq .chezmoi.os "darwin" }}
+if [ -d "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" ]; then
+    export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+fi
+{{- else if eq .chezmoi.os "linux" }}
+if [ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ]; then
+    export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
+fi
+{{- end }}
+
+# krew
+if [ -d "${KREW_ROOT:-$HOME/.krew}" ]; then
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+fi
+
+# Dotnet
+if [ -d $HOME/.dotnet/sdk ]; then
+    export DOTNET_ROOT=$HOME/.dotnet
+    export PATH="$PATH:$DOTNET_ROOT"
+elif [ -d /usr/local/dotnet/sdk ]; then
+    export DOTNET_ROOT=/usr/local/dotnet
+    export PATH="$PATH:/usr/local/dotnet"
+fi
+if [ -d "$HOME/.dotnet/tools" ]; then
+    export PATH="$HOME/.dotnet/tools:$PATH"
+fi
+
+# LM Studio
+if [[ -d $HOME/.lmstudio/bin ]]; then
+export PATH="$PATH:$HOME/.lmstudio/bin"
+fi
+
+# Znap
+export ZNAP_HOME="$XDG_DATA_HOME/znap"
+
+[[ -f $ZNAP_HOME/znap.zsh ]] ||
+    git clone --depth 1 https://github.com/marlonrichert/zsh-snap.git $ZNAP_HOME
+
+source $ZNAP_HOME/znap.zsh
+
+for file in $XDG_CONFIG_HOME/zsh/*.zsh; do
+    source "$file"
+done
+
+znap eval starship 'starship init zsh --print-full-init'

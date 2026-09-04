@@ -1,0 +1,5 @@
+theme = "catpuccin_mocha"
+
+[editor]
+line-number = "relative"
+

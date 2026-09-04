@@ -1,0 +1,122 @@
+{{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
+{{- $enpassVault := .enpassVault -}}
+{{- $agentGateway := output "sh" "-c" (printf "%s -vault %s -json -detailed show %s | jq -r '.[] | select(.title == %s) | .fields[] | select(.label == %s) | .value'" $enpass (shellQuote $enpassVault) (shellQuote "AgentGateway") (shellQuote "AgentGateway") (shellQuote "prskr")) | trim -}}
+providers:
+  - id: agentgw
+    name: Agent Gateway
+    base_url: https://agentgw.priv.icb4dc0.de/v1
+    api_keys:
+      agentgw: '{{ $agentGateway }}'
+    additional_parameters:
+      return_images: false
+    # Specify all models to use with the current provider
+    models:
+      - id: gemini-3.1-flash-lite
+        name: Gemini 3.1 Flash Lite
+        provider: agentgw
+        context: 1048576
+        abilities:
+          temperature:
+            supported: true
+          vision:
+            supported: true
+          tools:
+            supported: true
+      - id: gemini-3-flash
+        name: Gemini 3 Flash
+        provider: agentgw
+        context: 1048576
+        abilities:
+          temperature:
+            supported: true
+          vision:
+            supported: true
+          tools:
+            supported: true
+      - id: gpt-5.4-nano
+        name: GPT 5.4 Nano
+        provider: agentgw
+        context: 400000
+        abilities:
+          temperature:
+            supported: true
+          vision:
+            supported: true
+          tools:
+            supported: true
+      - id: gpt-5.4-mini
+        name: GPT 5.4 Mini
+        provider: agentgw
+        context: 400000
+        abilities:
+          temperature:
+            supported: true
+          vision:
+            supported: true
+          tools:
+            supported: true
+      - id: mistral-large
+        name: Mistral Large 3
+        provider: agentgw
+        context: 262144
+        abilities:
+          temperature:
+            supported: true
+          system_message:
+            supported: true
+          vision:
+            supported: true
+          tools:
+            supported: true
+      - id: mistral-medium
+        name: Mistral Medium 3.5
+        provider: agentgw
+        context: 262144
+        abilities:
+          temperature:
+            supported: true
+          system_message:
+            supported: true
+          vision:
+            supported: true
+          tools:
+            supported: true
+      - id: mistral-small
+        name: Mistral Small 4
+        provider: agentgw
+        context: 262144
+        abilities:
+          temperature:
+            supported: true
+          system_message:
+            supported: true
+          vision:
+            supported: true
+          tools:
+            supported: true
+      - id: gemma-4-26b-a4b-it
+        name: Gemma 4 26B
+        provider: agentgw
+        context: 32000
+        abilities:
+          temperature:
+            supported: true
+          system_message:
+            supported: true
+          vision:
+            supported: true
+          tools:
+            supported: true
+      - id: qwen3.6-35b-a3b
+        name: Qwen3.6 35B
+        provider: agentgw
+        context: 120000
+        abilities:
+          temperature:
+            supported: true
+          system_message:
+            supported: true
+          vision:
+            supported: true
+          tools:
+            supported: true

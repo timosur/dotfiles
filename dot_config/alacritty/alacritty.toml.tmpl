@@ -1,0 +1,12 @@
+[font]
+size = 13
+
+[font.normal]
+{{- if eq .chezmoi.os "darwin"}}
+family = "Hasklug Nerd font"
+{{- else if eq .chezmoi.os "linux" }}
+family = "Cascadia Code"
+{{- end }}
+
+[window]
+option_as_alt = "Both"

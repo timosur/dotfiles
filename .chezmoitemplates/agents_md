@@ -1,0 +1,14 @@
+# General Rules
+
+## Communication & Prose Style
+- **Technical & Concise:** All documentation, logs, and user-facing messages must be direct, fact-based, and free of unnecessary jargon or filler. Prioritize clarity and brevity.
+
+## Documentation Standards
+- **Tutorial-Driven:** Provide clear, scenario-based guides for common operations.
+- **Reference-Heavy:** Maintain exhaustive documentation for all API fields, configuration options, and system behaviors.
+- **Visual-Rich:** Utilize architecture diagrams and flowcharts to explain complex interactions and state transitions.
+
+## Core Principles
+1. **TDD is Mandatory:** Write failing tests first (Red phase), then implement the minimum code to pass (Green phase).
+2. **Code Quality:** Target >70% coverage
+3. **User Experience First:** Every decision should prioritize user experience

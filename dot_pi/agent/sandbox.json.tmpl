@@ -1,0 +1,49 @@
+{
+  "enabled": true,
+  "permissionPromptTimeoutSeconds": 0,
+  "network": {
+    "allowLocalBinding": true,
+    "allowAllUnixSockets": false,
+    "allowUnauthenticatedSocksProxy": false,
+    "allowedDomains": [
+      "code.icb4dc0.de",
+      "*.docker.io",
+      "github.com",
+      "ghcr.io",
+      "*.github.com",
+      "*.googleapis.com",
+      "*.githubusercontent.com",
+      "*.golang.org",
+      "goproxy.io",
+      "*.bazel.build",
+      "dl.k8s.io"
+    ],
+    "deniedDomains": []
+  },
+  "filesystem": {
+{{- /*
+    For READS:
+    - ANY read is prompted unless the path is in allowRead or allowWrite
+    - Granting a prompt adds to allowRead, which overrides denyRead
+    - denyRead is not a hard-block; it just marks regions as denied by default
+*/}}
+    "denyRead": ["/Users", "/home"],
+    "allowRead": [
+      ".",
+      "~/.config",
+      "~/.local",
+      "~/.agents/skills/",
+      "Library",
+      "~/.pi/agent/npm/node_modules/@carderne/sandbox-runtime/vendor/seccomp",
+      "/home/baez/.agents/skills/openspec-apply-change/SKILL.md"
+    ],
+{{- /*
+    For WRITES:
+    - allowWrite also grants read access to the same paths
+    - empty ALLOW means no write access at all
+    - DENY takes precedence and is never prompted
+*/}}
+    "allowWrite": [".", "/tmp", "~/.cache/bazel/"],
+    "denyWrite": [".env", ".env.*", "*.pem", "*.key"]
+  }
+}

@@ -1,0 +1,111 @@
+[user]
+	email = {{ .email }}
+	name = {{ .name }}
+    signingkey = {{ if hasPrefix "ssh" .gpgSigningKey }}key::{{ .gpgSigningKey }}{{ else }}{{ .gpgSigningKey }}{{ end }}
+
+[core]
+	autocrlf = input
+{{- $deltaBinPath := lookPath "delta" }}
+{{- if $deltaBinPath }}
+	pager = {{ $deltaBinPath }}
+{{- end }}
+	excludesfile = {{ .chezmoi.homeDir }}/.gitignore
+	fsmonitor = true
+	untrackedCache = true
+
+[column]
+    ui = auto
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = -version:refname
+
+[diff]
+	colorMoved = plain
+	tool = difftastic
+	algorithm = histogram
+	mnemonicPrefix = true
+    renames = true
+
+[pager]
+	difftool = true
+
+[difftool]
+	prompt = false
+
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+
+[delta]
+	plus-color = "#012800"
+	minus-color = "#340001"
+	syntax-theme = Monokai Extended
+	line-numbers = true
+	side-by-side = true
+	inspect-raw-lines = false
+
+[pager]
+	difftool = true
+
+[pull]
+	rebase = true
+
+[push]
+    default = simple
+	autoSetupRemote = true
+	followTags = true
+
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
+
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
+
+[merge]
+    conflictstyle = zdiff3
+
+[interactive]
+	diffFilter = delta --color-only
+
+[alias]
+	dft = difftool
+
+[credential]
+    helper = cache --timeout 1800 # 30 minutes
+    helper = oauth
+
+[commit]
+{{- if eq ( env "DEVCONTAINER" ) "private" | not }}
+	gpgsign = true
+{{- end }}
+	verbose = true
+
+[rerere]
+    enabled = true
+    autoupdate = true
+
+[init]
+	defaultBranch = main
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[filter "age"]
+	clean = git-age clean -- %f
+	smudge = git-age smudge -- %f
+	required = true
+
+[diff "age"]
+	textconv = cat
+
+[help]
+    autocorrect = prompt

@@ -1,0 +1,25 @@
+znap source ohmyzsh/ohmyzsh \
+    plugins/{ bazel,git,kubectl,zoxide{{- if eq .chezmoi.os "darwin" }},brew{{end}}}
+
+znap source lukechilds/zsh-nvm
+znap source zsh-users/zsh-autosuggestions
+znap source zsh-users/zsh-syntax-highlighting
+
+{{- range list "golangci-lint" "goreleaser" "devpod" "helm"}}
+{{- if lookPath . }}
+if [[ ! -f $HOME/Library/zsh/site-functions/_{{ . }} ]]; then
+    znap fpath _{{ . }} '{{ . }} completion zsh'
+fi
+{{- end }}
+{{- end }}
+{{- if lookPath "atuin" }}
+# znap eval _atuin_pty_proxy 'atuin pty-proxy init zsh'
+znap eval _atuin 'atuin init zsh'
+znap eval _atuin_ai 'atuin ai init zsh'
+{{- end }}
+
+{{- if lookPath "direnv" }}
+znap eval _direnv 'direnv hook zsh'
+{{- end }}
+
+# command -v buildr &> /dev/null && znap fpath _buildr 'buildr completion zsh'

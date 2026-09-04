@@ -1,0 +1,61 @@
+# Wayland  #
+export _JAVA_AWT_WM_NONREPARENTING=1
+#  Wayland
+
+# NVM #
+export NVM_COMPLETION=true
+export NVM_LAZY_LOAD=true
+# NVM #
+
+# dotnet  #
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=0
+# dotnet #
+
+# git-age #
+{{- if eq .chezmoi.os "darwin" }}
+export GIT_AGE_AGENT_HOST="unix://{{ .chezmoi.homeDir }}/Library/Application Support/git-age-keyring-agent.sock"
+{{- else if eq .chezmoi.os "linux" }}
+export GIT_AGE_AGENT_HOST="unix:///run/user/{{ .chezmoi.uid }}/git-age-keyring-agent.sock"
+{{- end }}
+# git-age #
+
+# Enpass #
+export ENPASS_VAULT={{ .enpassVault | quote }}
+# Enpass #
+
+#  Env Programs #
+export EDITOR=hx
+export BROWSER=/usr/bin/firefox
+export GIT_EDITOR=hx
+export VISUAL=hx
+export TERMINAL=alacritty
+export SOPS_GPG_EXEC=gpg2
+export CHROME_EXECUTABLE=/usr/bin/chromium
+[ -z "$TERM" ] && export TERM="xterm-256color"
+#  Env Programs #
+
+# bat settings #
+export BAT_THEME="Solarized (dark)"
+export BAT_STYLE="full"
+# bat #
+
+# grab #
+export GRAB_HOME={{- .chezmoi.homeDir -}}/sources
+export GRAB_COPY_PATH=1
+# grab #
+
+# History  #
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.cache/zsh/history"
+[ ! -d "$(dirname "$HISTFILE")" ] && mkdir -p "$(dirname "$HISTFILE")"
+export HISTSIZE=10000
+export SAVEHIST=10000
+#  History #
+
+# ZSH options #
+setopt autocd
+#  ZSH options #
+
+{{- $isDevcontainer := env "DEVCONTAINER" | not | not -}}
+{{- if $isDevcontainer }}
+export DEVCONTAINER={{- env "DEVCONTAINER" }}
+{{- end }}

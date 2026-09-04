@@ -1,0 +1,18 @@
+{{- if or (lookPath "kubectl" | not) (lookPath "kustomize" | not ) -}}
+#!/bin/bash
+{{- if (lookPath "kubectl" | not) }}
+    {{- if eq .chezmoi.os "darwin" }}
+brew install kubectl
+    {{- else if eq .chezmoi.os "linux" }}
+{{ if ne .chezmoi.uid "0" }} sudo {{ end -}}curl -L  -o /usr/local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/{{ .chezmoi.arch }}/kubectl"
+{{ if ne .chezmoi.uid "0" }} sudo {{ end -}}chmod +x /usr/local/bin/kubectl
+    {{- end }}
+{{- end }}
+{{- if (lookPath "kustomize" | not) -}}
+    {{- if eq .chezmoi.os "darwin" }}
+brew install kustomize
+    {{- else if eq .chezmoi.os "linux" }}
+{{ if ne .chezmoi.uid "0" }} sudo {{ end -}}curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | {{ if ne .chezmoi.uid "0" }} sudo {{ end -}}bash -s -- /usr/local/bin/
+    {{- end }}
+{{- end }}
+{{- end }}

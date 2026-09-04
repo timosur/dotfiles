@@ -1,0 +1,10 @@
+{{- if (lookPath "dotnet" | not) -}}
+#!/bin/bash
+    {{- if eq .chezmoi.os "darwin" }}
+brew tap isen-ng/dotnet-sdk-versions
+brew install --cask dotnet-sdk10
+    {{- else if eq .chezmoi.os "linux" }}
+curl -L https://dot.net/v1/dotnet-install.sh | {{ if ne .chezmoi.uid "0" }} sudo {{ end -}}bash -s -- --channel LTS --install-dir /usr/local/dotnet
+curl -L https://dot.net/v1/dotnet-install.sh | {{ if ne .chezmoi.uid "0" }} sudo {{ end -}}bash -s -- --channel STS --install-dir /usr/local/dotnet
+    {{- end }}
+{{- end }}

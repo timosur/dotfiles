@@ -1,0 +1,18 @@
+{{- $isDevcontainer := env "DEVCONTAINER" | not | not -}}
+{{- $devcontainerType := env "DEVCONTAINER" -}}
+data:
+  name: "Timo Surmann"
+{{- if $isDevcontainer }}
+  email: dev@timosur.com
+{{ else }}
+  email: {{ promptString "email" | quote }}
+{{ end }}
+{{ if $isDevcontainer }}
+  gpgSigningKey: A2ADB597B5C96D5A
+{{ else }}
+  gpgSigningKey: {{ promptString "signing key" | quote }}
+{{ end }}
+  enpassVault: {{ promptStringOnce . "enpassVault" "Enpass vault directory" | quote }}
+
+diff:
+  command: delta

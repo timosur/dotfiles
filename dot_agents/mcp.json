@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "agentgateway": {
+      "url": "https://agentgw.home.icb4dc0.de/mcp",
+      "auth": "bearer",
+      "bearerToken": "!enpass-cli -vault=\"$ENPASS_VAULT\" -json -detailed show AgentGateway | jq -r '.[] | select(.title == \"AgentGateway\") | .fields[] | select(.label == \"prskr\") | .value'"
+    }
+  }
+}

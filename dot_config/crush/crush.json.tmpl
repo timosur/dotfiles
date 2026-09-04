@@ -1,0 +1,143 @@
+{{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
+{{- $enpassVault := .enpassVault -}}
+{{- $context7 := output "sh" "-c" (printf "%s -vault %s -json -detailed show %s | jq -r '.[] | select(.title == %s) | .fields[] | select(.label == %s) | .value'" $enpass (shellQuote $enpassVault) (shellQuote "Context7") (shellQuote "Context7") (shellQuote "API Key")) | trim -}}
+{{- $agentGateway := output "sh" "-c" (printf "%s -vault %s -json -detailed show %s | jq -r '.[] | select(.title == %s) | .fields[] | select(.label == %s) | .value'" $enpass (shellQuote $enpassVault) (shellQuote "AgentGateway") (shellQuote "AgentGateway") (shellQuote "prskr")) | trim -}}
+{
+  "$schema": "https://charm.land/crush.json",
+  "lsp": {
+    "go": {
+      "command": "gopls"
+    }
+  },
+  "mcp": {
+    "sequential-thinking": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+          "run",
+          "--rm",
+          "-i",
+          "mcp/sequentialthinking"
+        ]
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp", "--api-key", "{{ $context7 }}"]
+    }
+  },
+  "providers": {
+    "agentgw": {
+      "name": "Agent Gateway",
+      "type": "openai-compat",
+      "base_url": "https://agentgw.home.icb4dc0.de/v1",
+      "api_key": "{{ $agentGateway }}",
+      "models": [
+        {
+          "id": "exo/mlx-community/mistralai_Devstral-Small-2-24B-Instruct-2512-MLX-MXFP4",
+          "name": "Devstral Small 2",
+          "context_window": 262144,
+          "default_max_tokens": 20000,
+          "can_reason": false,
+          "cost_per_1m_in": 0,
+          "cost_per_1m_in_cached": 0,
+          "cost_per_1m_out": 0,
+          "cost_per_1m_out_cached": 0,
+          "has_reasoning_efforts": false,
+          "supports_attachments": false
+        },
+        {
+          "id": "macstudio/qwen3-coder-next-mlx",
+          "name": "Qwen3 Coder Next",
+          "context_window": 262144,
+          "default_max_tokens": 20000,
+          "can_reason": false,
+          "cost_per_1m_in": 0,
+          "cost_per_1m_in_cached": 0,
+          "cost_per_1m_out": 0,
+          "cost_per_1m_out_cached": 0,
+          "has_reasoning_efforts": false,
+          "supports_attachments": false
+        },
+        {
+          "id": "mistral/devstral-2512",
+          "name": "Devstral 2",
+          "context_window": 262144,
+          "default_max_tokens": 20000,
+          "can_reason": true,
+          "cost_per_1m_in": 0.4,
+          "cost_per_1m_in_cached": 0.4,
+          "cost_per_1m_out": 2,
+          "cost_per_1m_out_cached": 2,
+          "has_reasoning_efforts": false,
+          "supports_attachments": true
+        },
+        {
+          "id": "gemini/gemini-3-flash-preview",
+          "name": "Gemini 3 Flash Preview",
+          "context_window": 262144,
+          "default_max_tokens": 20000,
+          "can_reason": true,
+          "cost_per_1m_in": 0.5,
+          "cost_per_1m_in_cached": 0.05,
+          "cost_per_1m_out": 3.0,
+          "cost_per_1m_out_cached": 3.0,
+          "has_reasoning_efforts": false,
+          "supports_attachments": true
+        },
+        {
+          "id": "openrouter/z-ai/glm-5",
+          "name": "GLM 5",
+          "context_window": 202752,
+          "default_max_tokens": 200000,
+          "can_reason": true,
+          "cost_per_1m_in": 0.4,
+          "cost_per_1m_in_cached": 0.4,
+          "cost_per_1m_out": 1.5,
+          "cost_per_1m_out_cached": 1.5,
+          "has_reasoning_efforts": false,
+          "supports_attachments": true
+        },
+        {
+          "id": "moonshotai/kimi-k2.5",
+          "name": "Kimi K2.5",
+          "context_window": 262144,
+          "default_max_tokens": 200000,
+          "can_reason": false,
+          "cost_per_1m_in": 0.45,
+          "cost_per_1m_in_cached": 0.45,
+          "cost_per_1m_out": 2.5,
+          "cost_per_1m_out_cached": 2.5,
+          "has_reasoning_efforts": false,
+          "supports_attachments": true
+        },
+        {
+          "id": "azure_anthropic/claude-haiku-4-5",
+          "name": "Claude Haiku 4.5",
+          "context_window": 262144,
+          "default_max_tokens": 20000,
+          "can_reason": true,
+          "cost_per_1m_in": 1,
+          "cost_per_1m_in_cached": 1.25,
+          "cost_per_1m_out": 5,
+          "cost_per_1m_out_cached": 0.1,
+          "has_reasoning_efforts": false,
+          "supports_attachments": true
+        },
+        {
+          "id": "azure_anthropic/claude-sonnet-4-5",
+          "name": "Claude Sonnet 4.5",
+          "context_window": 262144,
+          "default_max_tokens": 64000,
+          "can_reason": true,
+          "cost_per_1m_in": 3,
+          "cost_per_1m_in_cached": 0.3,
+          "cost_per_1m_out": 15,
+          "cost_per_1m_out_cached": 0.1,
+          "has_reasoning_efforts": false,
+          "supports_attachments": true
+        }
+      ]
+    }
+  }
+}

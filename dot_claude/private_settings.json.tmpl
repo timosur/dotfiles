@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "language": "english",
+  "autoMemoryEnabled": true,
+  "enabledMcpjsonServers": ["memory", "gopls"],
+  "extraKnownMarketplaces": {
+      "ponytail": {
+        "source": {
+          "source": "github",
+          "repo": "DietrichGebert/ponytail"
+        }
+    }
+  },
+  "enabledPlugins": {
+    "ponytail@ponytail": true
+  },
+  "sandbox": {
+    "enabled": true,
+    "filesystem": {
+      "denyRead": ["/Users", "/home"],
+      "allowRead": [
+        ".",
+        "~/.config",
+        "~/.local",
+        "Library",
+        "~/.cache/bazel/"
+      ],
+      "allowWrite": [".", "/tmp"],
+      "denyWrite": [".env", ".env.*", "*.pem", "*.key"]
+    }
+  },
+  "hooks": {
+    "PermissionRequest": [
+{{- if eq .chezmoi.os "darwin" }}
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "OTTY_CLI='/Applications/Otty.app/Contents/MacOS/otty-cli' '/Applications/Otty.app/Contents/Resources/agent-integration/claude/otty-hook.sh' awaiting \"$PPID\" ctx"
+          }
+        ]
+      }
+{{- end }}
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+            {
+                "type": "command",
+                "command": "rtk hook claude"
+            }{{- if (lookPath "roborev") -}},
+            {
+                "command": "{{- lookPath "roborev" }} agent-hook run",
+                "type": "command"
+            }
+{{- end }}{{- if (lookPath "atuin") -}},
+            {
+                "command": "{{- lookPath "atuin" }} hook claude-code",
+                "type": "command"
+            }
+{{- end }}
+        ]
+      }{{- if eq .chezmoi.os "darwin" }},
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "OTTY_CLI='/Applications/Otty.app/Contents/MacOS/otty-cli' '/Applications/Otty.app/Contents/Resources/agent-integration/claude/otty-hook.sh' processing \"$PPID\""
+          }
+        ]
+      }
+{{- end }}
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+{{ if (lookPath "roborev") }}
+            {
+                "command": "{{- lookPath "roborev" }} agent-hook run",
+                "type": "command"
+            }{{if (lookPath "atuin") }},{{ end }}
+{{- end }}
+{{ if (lookPath "atuin") }}
+            {
+                "command": "{{- lookPath "atuin" }} hook claude-code",
+                "type": "command"
+            }
+{{- end }}
+        ],
+        "matcher": "Bash"
+      }{{- if eq .chezmoi.os "darwin" }},
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "OTTY_CLI='/Applications/Otty.app/Contents/MacOS/otty-cli' '/Applications/Otty.app/Contents/Resources/agent-integration/claude/otty-hook.sh' processing \"$PPID\""
+          }
+        ]
+      }
+{{- end }}
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+{{ if (lookPath "atuin") }}
+            {
+                "command": "{{- lookPath "atuin" }} hook claude-code",
+                "type": "command"
+            }
+{{- end }}
+        ],
+        "matcher": "Bash"
+      }
+    ],
+    "SessionStart": [
+{{- if eq .chezmoi.os "darwin" }}
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "OTTY_CLI='/Applications/Otty.app/Contents/MacOS/otty-cli' '/Applications/Otty.app/Contents/Resources/agent-integration/claude/otty-hook.sh' idle \"$PPID\""
+          }
+        ]
+      }
+{{- end }}
+    ],
+    "Stop": [
+      {
+        "hooks": [
+{{ if (lookPath "roborev") }}
+            {
+                "command": "{{- lookPath "roborev" }} agent-hook run",
+                "type": "command"
+            }
+{{- end }}
+        ]
+      }{{- if eq .chezmoi.os "darwin" }},
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "OTTY_CLI='/Applications/Otty.app/Contents/MacOS/otty-cli' '/Applications/Otty.app/Contents/Resources/agent-integration/claude/otty-hook.sh' idle \"$PPID\""
+            }
+          ]
+        }
+      {{- end }}
+    ],
+    "UserPromptSubmit": [
+{{- if eq .chezmoi.os "darwin" }}
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "OTTY_CLI='/Applications/Otty.app/Contents/MacOS/otty-cli' '/Applications/Otty.app/Contents/Resources/agent-integration/claude/otty-hook.sh' processing \"$PPID\""
+          }
+        ]
+      }
+{{- end }}
+    ]
+  },
+  "theme": "dark"
+}

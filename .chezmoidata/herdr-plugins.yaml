@@ -1,0 +1,4 @@
+herdr:
+  plugins:
+    - alexarthurs/herdr-sidebar/plugins/herdr-sidebar
+    - persiyanov/herdr-reviewr

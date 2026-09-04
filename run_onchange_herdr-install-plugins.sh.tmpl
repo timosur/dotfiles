@@ -1,0 +1,8 @@
+{{ if lookPath "herdr" -}}
+#!/bin/bash
+
+{{- range .herdr.plugins }}
+herdr plugin install {{ . }}
+{{- end }}
+
+{{ end -}}

@@ -1,0 +1,55 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "shift shift": "text_finder::Toggle",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "cmd-<": "agent::AddSelectionToThread",
+    },
+  },
+  {
+    "context": "Terminal",
+    "unbind": {
+      "cmd->": "agent::AddSelectionToThread",
+    },
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "cmd-<": "agent::AddSelectionToThread",
+    },
+  },
+  {
+    "context": "AgentPanel",
+    "unbind": {
+      "cmd->": "agent::AddSelectionToThread",
+    },
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "cmd-<": "agent::AddSelectionToThread",
+      "alt-left": "editor::MoveToPreviousSubwordStart",
+      "alt-right": "editor::MoveToNextSubwordEnd",
+      "shift-alt-left": "editor::SelectToPreviousSubwordStart",
+      "shift-alt-right": "editor::SelectToNextSubwordEnd",
+    },
+  }
+]

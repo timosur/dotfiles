@@ -1,0 +1,38 @@
+#  Editor
+alias vim='hx'
+alias vi='hx'
+alias edit='hx'
+#  Editor
+
+alias oc=opencode
+alias enp='enpass-cli -vault="$ENPASS_VAULT" -sort'
+{{- if lookPath "bat" }}
+alias cat='bat'
+{{- else if lookPath "batcat" }}
+alias cat='batcat'
+{{- end }}
+alias grep='grep --color=always'
+alias lsd='lsd -lh'
+alias ls='lsd'
+alias ll='lsd -l'
+alias tree='eza -lh --tree --git'
+alias df=duf
+alias ytv='youtube-viewer --video-player=mplayer -novideo'
+alias ytdlm="youtube-dl --extract-audio --audio-format flac"
+alias http='http --pretty all --style monokai'
+alias srm='shred -zvu -n 5'
+alias bgo='bazel run @rules_go//go --'
+alias gazelle='bazel run //:gazelle'
+alias serena='uvx --from git+https://github.com/oraios/serena serena'
+
+if [ -d $HOME/.dotnet/dotnet ]; then
+alias dotnet="$HOME/.dotnet/dotnet"
+fi
+
+fwd() {
+  ssh -O forward -L "${1}:localhost:${1}" "$2"
+}
+
+unfwd() {
+  ssh -O cancel -L "${1}:localhost:${1}" "$2"
+}

@@ -1,0 +1,89 @@
+{{- $enpass := findOneExecutable "enpass-cli" "enpasscli" -}}
+{{- $enpassVault := .enpassVault -}}
+{{- $kagi := output "sh" "-c" (printf "%s -vault %s -json -detailed show %s | jq -r '.[] | select(.title == %s) | .fields[] | select(.label == %s) | .value'" $enpass (shellQuote $enpassVault) (shellQuote "Kagi") (shellQuote "Kagi") (shellQuote "Zed API Key")) | trim -}}
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": false,
+  "plugin": ["@dietrichgebert/ponytail"],
+  "provider": {
+    "agentgw": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Agent Gateway",
+      "options": {
+        "baseURL": "https://agentgw.home.icb4dc0.de/v1",
+      },
+      "models": {
+        "qwen3.8-27b": {
+          "name": "qwen3.8-27b",
+          "reasoning": true,
+          "options": {
+            "reasoningEffort": "xhigh"
+          },
+          "variants": {
+              "xhigh": {
+                  "reasoningEffort": "xhigh"
+              },
+              "medium": {
+                  "reasoningEffort": "medium"
+              },
+              "low": {
+                  "reasoningEffort": "low"
+              },
+              "instant": {
+                  "reasoningEffort": "none"
+              }
+          }
+        },
+        "qwen3.6-35b-a3b": {
+          "name": "Qwen 3.6 35B",
+          "reasoning": true,
+        },
+        "gemma-4-26b-a4b-it": {
+            "name": "Gemma 4 26B",
+            "reasoning": true,
+        },
+        "openrouter/anthropic/claude-haiku-4.5": {
+            "name": "Claude Haiku 4.5",
+        },
+        "openrouter/anthropic/claude-sonnet-4.6": {
+            "name": "Claude Sonnet 4.6",
+        },
+        "gemini-3.1-flash-lite": {
+            "name": "Gemini 3.1 Flash Lite",
+        },
+        "gemini-3.5-flash": {
+            "name": "Gemini 3.5 Flash",
+        }
+      },
+    }
+  },
+  "mcp": {
+    "kagi": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "-y", "kagi-mcp-server@latest"],
+      "environment": {
+        "KAGI_API_KEY": "{{ $kagi }}",
+        "KAGI_SUMMARIZER_ENGINE": "cecil"
+      }
+    },
+    "gopls": {
+      "type": "local",
+      "enabled": false,
+      "command": ["gopls", "mcp"]
+    },
+    "code-runner": {
+      "type": "local",
+      "enabled": false,
+      "command": ["npx", "-y", "mcp-server-code-runner@latest"]
+    }
+  },
+  "lsp": {
+{{- if hasSuffix "@rwe.com" .email }}
+    "csharp": {
+      "disabled": false,
+      "command": ["csharp-ls"],
+    },
+{{- end }}
+  }
+}

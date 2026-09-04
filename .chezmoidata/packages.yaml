@@ -63,11 +63,13 @@ packages:
       - httpie-desktop
       - dotnet-sdk10
       - ghostty
+      - jordanbaird-ice
       - otty
       - netbird-ui
       - raycast
       - sizeup
       - ungoogled-chromium
+      - uniclipboard
       - vlc
       - zed
       - zen

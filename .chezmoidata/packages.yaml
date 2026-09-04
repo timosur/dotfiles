@@ -1,6 +1,7 @@
 packages:
   taps:
     - bufbuild/buf
+    - netbirdio/tap
   brews:
     - atuin
     - bat
@@ -37,7 +38,7 @@ packages:
     - lsd
     - macchina
     - neovim
-    - netbird
+    - netbirdio/tap/netbird
     - openspec
     - pi-coding-agent
     - pinentry
@@ -45,7 +46,6 @@ packages:
     - pwgen
     - rbw
     - ripgrep
-    - roborev
     - rtk
     - skopeo
     - socktainer
@@ -58,18 +58,16 @@ packages:
     - zoxide
   darwin:
     taps:
-      - isen-ng/dotnet-sdk-versions
     brews:
       - macmon
       - pinentry-mac
     casks:
       - httpie-desktop
-      - dotnet-sdk10
       - ghostty
       - jordanbaird-ice
       - orbstack
       - otty
-      - netbird-ui
+      - netbirdio/tap/netbird-ui
       - raycast
       - sizeup
       - ungoogled-chromium

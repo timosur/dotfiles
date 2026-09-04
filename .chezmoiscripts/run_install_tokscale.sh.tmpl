@@ -1,0 +1,5 @@
+{{- if lookPath "tokscale" | not -}}
+#!/bin/bash
+
+npm install --global tokscale
+{{- end }}

@@ -1,7 +1,9 @@
 # Dotfiles
 
 Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
+
 Huge thanks to [prskr](https://github.com/prskr) for allowing me to fork :-).
+Original dotfiles by him can be found [here](https://code.icb4dc0.de/prskr/dotfiles).
 
 ## Initial setup
 

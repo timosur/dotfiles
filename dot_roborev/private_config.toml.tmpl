@@ -146,8 +146,7 @@ column_config_version = 0
 {{- end }}
 
 [sync]
-enabled = true
-postgres_url = 'postgres://{{ (rbw "Roborev Sync").data.username }}:{{ (rbw "Roborev Sync").data.password }}@app-cluster-18-rw.postgres.k8s.icb4dc0.de:5432/roborev'
+enabled = false
 interval = '5m'
 {{- $computerName := "" }}
 {{- if eq .chezmoi.os "darwin" }}

@@ -1,5 +1,7 @@
+mkdir -p "$ZSH_CACHE_DIR/completions"
+
 znap source ohmyzsh/ohmyzsh \
-    plugins/{ bazel,git,kubectl,zoxide{{- if eq .chezmoi.os "darwin" }},brew{{end}}}
+    plugins/{bazel,git,kubectl,zoxide{{- if eq .chezmoi.os "darwin" }},brew{{end}}}
 
 znap source lukechilds/zsh-nvm
 znap source zsh-users/zsh-autosuggestions
@@ -15,7 +17,6 @@ fi
 {{- if lookPath "atuin" }}
 # znap eval _atuin_pty_proxy 'atuin pty-proxy init zsh'
 znap eval _atuin 'atuin init zsh'
-znap eval _atuin_ai 'atuin ai init zsh'
 {{- end }}
 
 {{- if lookPath "direnv" }}

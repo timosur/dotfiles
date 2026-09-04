@@ -18,7 +18,7 @@ import { spawn } from "node:child_process";
 import { basename } from "node:path";
 
 const OTTY_CLI = "/Applications/Otty.app/Contents/MacOS/otty-cli";
-const OTTY_SOCKET = "/Users/baez/Library/Application Support/io.appmakes.otty/otty.sock";
+const OTTY_SOCKET = "/Users/timosur/Library/Application Support/io.appmakes.otty/otty.sock";
 const OTTY_AGENT = "pi"; // "pi" | "omp"
 
 // Derive the session id from the persisted session file (its basename, minus

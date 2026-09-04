@@ -8,5 +8,5 @@ max-cache-ttl 120
 pinentry-program /opt/homebrew/bin/pinentry-mac
 # pinentry-program {{ .chezmoi.homeDir -}}/.gnupg/pinentry-ide.sh
 {{- else if eq .chezmoi.os "linux" }}
-pinentry-program /usr/bin/pinentry-rofi
+pinentry-program /usr/bin/pinentry-curses
 {{- end }}

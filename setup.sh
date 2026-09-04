@@ -8,6 +8,15 @@ which chezmoi 2>&1 > /dev/null || sudo sh -c "$(curl -fsLS get.chezmoi.io)" -- -
 
 chezmoi init --apply https://github.com/timosur/dotfiles.git
 
+if command -v rbw > /dev/null 2>&1; then
+    if ! rbw config show | grep -Fq '"email": "'; then
+        rbw config set base_url https://vault.home.timosur.com
+        rbw login
+    fi
+    rbw unlock
+    rbw sync
+fi
+
 if $(which dnf 2>&1 > /dev/null); then
 sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
 sudo dnf install -y \

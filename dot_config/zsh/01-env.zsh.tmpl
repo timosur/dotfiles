@@ -40,6 +40,12 @@ export GRAB_HOME={{- .chezmoi.homeDir -}}/sources
 export GRAB_COPY_PATH=1
 # grab #
 
+# AgentGateway #
+if command -v rbw >/dev/null 2>&1 && rbw unlocked >/dev/null 2>&1; then
+    export AGENTGATEWAY_INFERENCE_API_KEY="$(rbw get AgentGateway)"
+fi
+# AgentGateway #
+
 # History  #
 [ -z "$HISTFILE" ] && HISTFILE="$HOME/.cache/zsh/history"
 [ ! -d "$(dirname "$HISTFILE")" ] && mkdir -p "$(dirname "$HISTFILE")"

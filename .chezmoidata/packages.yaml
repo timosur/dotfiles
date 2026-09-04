@@ -7,7 +7,6 @@ packages:
       - atuin
       - bat
       - bat-extras
-      - bitwarden-cli
       - buf
       - crane
       - diffnav
@@ -16,7 +15,6 @@ packages:
       - dive
       - duf
       - fd
-      - forgejo-cli
       - git
       - git-absorb
       - git-cliff
@@ -62,8 +60,6 @@ packages:
       - watch
       - zoxide
     casks:
-      - excalidrawz
-      - firefox
       - httpie-desktop
       - dotnet-sdk10
       - ghostty

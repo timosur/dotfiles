@@ -1,15 +1,30 @@
+# Added by OrbStack: 'orb' SSH host for Linux machines
+# This only works if it's at the top of ssh_config (before any Host blocks).
+# This won't be added again if you remove it.
+Include ~/.orbstack/ssh/config
+
 # Kubernetes homelab nodes
 Host homelab-amd
+    User timosur
+    IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.100
 
 Host homelab-amd-desktop
+    User timosur
+    IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.241
 
 Host homelab-arm-large
+    User timosur
+    IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.54
 
 Host homelab-arm-small
+    User timosur
+    IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.124
 
 Host homelab-gpu
+    User timosur
+    IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.47

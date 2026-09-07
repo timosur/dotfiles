@@ -1,7 +1,6 @@
 packages:
   taps:
     - bufbuild/buf
-    - netbirdio/tap
   brews:
     - atuin
     - bat
@@ -38,7 +37,6 @@ packages:
     - lsd
     - macchina
     - neovim
-    - netbirdio/tap/netbird
     - openspec
     - pi-coding-agent
     - pinentry
@@ -67,7 +65,6 @@ packages:
       - jordanbaird-ice
       - orbstack
       - otty
-      - netbirdio/tap/netbird-ui
       - raycast
       - sizeup
       - ungoogled-chromium

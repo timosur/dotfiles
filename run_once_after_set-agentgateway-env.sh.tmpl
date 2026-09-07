@@ -1,0 +1,8 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+set -eu
+
+command -v rbw >/dev/null 2>&1 || exit 0
+rbw unlock
+launchctl setenv AGENTGATEWAY_INFERENCE_API_KEY "$(rbw get AgentGateway)"
+{{- end }}

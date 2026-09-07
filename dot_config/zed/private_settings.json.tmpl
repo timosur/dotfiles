@@ -89,12 +89,12 @@
     "single_file_review": true,
     "inline_assistant_model": {
       "provider": "AgentGateway",
-      "model": "gpt-5-6-sol-terra",
+      "model": "qwen3-5-9b",
       "enable_thinking": false
     },
     "commit_message_model": {
       "provider": "AgentGateway",
-      "model": "gpt-5-6-sol-terra",
+      "model": "qwen3-5-9b",
       "effort": "low",
       "enable_thinking": true,
       "speed": "fast"
@@ -140,7 +140,7 @@
     "default_profile": "ask",
     "default_model": {
       "provider": "AgentGateway",
-      "model": "gpt-5-6-sol-terra",
+      "model": "qwen3-5-9b",
       "effort": "low",
       "enable_thinking": false
     },
@@ -257,16 +257,20 @@
         "api_url": "https://inference.ai.home.timosur.com/v1",
         "available_models": [
           {
-            "name": "bonsai-27b",
-            "display_name": "Bonsai 27B (Ollama)"
+            "name": "qwen3-5-0-8b",
+            "display_name": "Qwen 3.5 0.8B (Ollama)"
           },
           {
-            "name": "bonsai-27b-opencode-local",
-            "display_name": "Bonsai 27B Local Agent (Ollama)"
+            "name": "qwen3-5-9b",
+            "display_name": "Qwen 3.5 9B (Ollama)"
           },
           {
-            "name": "qwen2-5-0-5b",
-            "display_name": "Qwen 2.5 0.5B (Ollama)"
+            "name": "qwen3-8-27b",
+            "display_name": "Qwen 3.8 27B (Ollama)"
+          },
+          {
+            "name": "qwythos-9b-abliterated",
+            "display_name": "Qwythos 9B Abliterated (Ollama)"
           },
           {
             "name": "claude-fable-5-1",
@@ -279,7 +283,7 @@
           {
             "name": "gpt-5-6-sol-terra",
             "display_name": "GPT-5.6 Sol Terra (OpenAI)"
-          }
+          },
         ]
       }
     }

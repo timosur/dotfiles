@@ -10,58 +10,33 @@
         "baseURL": "https://inference.ai.home.timosur.com/v1",
       },
       "models": {
-        "bonsai-27b": {
-          "name": "Bonsai 27B (Ollama)",
-          "reasoning": true,
-          "tool_call": true,
+        "qwen3-5-0-8b": {
+          "name": "Qwen 3.5 0.8B (Ollama)",
           "temperature": true,
-          "modalities": {
-            "input": ["text"],
-            "output": ["text"]
-          },
-          "limit": {
-            "context": 40960,
-            "input": 38912,
-            "output": 2048
-          }
+          "modalities": {"input": ["text"], "output": ["text"]},
+          "limit": {"context": 8192, "input": 7680, "output": 512}
         },
-        "bonsai-27b-opencode-local": {
-          "name": "Bonsai 27B Local Agent (Ollama)",
-          "reasoning": true,
-          "tool_call": true,
+        "qwen3-5-9b": {
+          "name": "Qwen 3.5 9B (Ollama)",
           "temperature": true,
-          "modalities": {
-            "input": ["text"],
-            "output": ["text"]
-          },
-          "limit": {
-            "context": 16384,
-            "input": 14336,
-            "output": 2048
-          }
+          "modalities": {"input": ["text"], "output": ["text"]},
+          "limit": {"context": 8192, "input": 7680, "output": 512}
         },
-        "qwen2-5-0-5b": {
-          "name": "Qwen 2.5 0.5B (Ollama)",
+        "qwen3-8-27b": {
+          "name": "Qwen 3.8 27B (Ollama)",
           "temperature": true,
-          "modalities": {
-            "input": ["text"],
-            "output": ["text"]
-          },
-          "limit": {
-            "context": 40960,
-            "input": 39936,
-            "output": 1024
-          }
+          "modalities": {"input": ["text"], "output": ["text"]},
+          "limit": {"context": 8192, "input": 7680, "output": 512}
         },
-        "claude-fable-5-1": {
-          "name": "Claude Fable 5.1 (Anthropic)"
+        "qwythos-9b-abliterated": {
+          "name": "Qwythos 9B Abliterated (Ollama)",
+          "temperature": true,
+          "modalities": {"input": ["text"], "output": ["text"]},
+          "limit": {"context": 8192, "input": 7680, "output": 512}
         },
-        "gpt-5-6-luna": {
-          "name": "GPT-5.6 Luna (OpenAI)"
-        },
-        "gpt-5-6-sol-terra": {
-          "name": "GPT-5.6 Sol Terra (OpenAI)"
-        }
+        "claude-fable-5-1": {"name": "Claude Fable 5.1 (Anthropic)"},
+        "gpt-5-6-luna": {"name": "GPT-5.6 Luna (OpenAI)"},
+        "gpt-5-6-sol-terra": {"name": "GPT-5.6 Sol Terra (OpenAI)"}
       },
     }
   },
@@ -69,7 +44,7 @@
     "local": {
       "mode": "primary",
       "description": "Read-only local Bonsai agent for small codebase questions.",
-      "model": "agentgw/bonsai-27b-opencode-local",
+      "model": "agentgw/qwen3-5-9b",
       "steps": 3,
       "permission": {
         "*": "deny",
@@ -79,10 +54,10 @@
       }
     },
     "title": {
-      "model": "agentgw/qwen2-5-0-5b"
+      "model": "agentgw/qwen3-5-0-8b"
     },
     "compaction": {
-      "model": "agentgw/qwen2-5-0-5b"
+      "model": "agentgw/qwen3-5-0-8b"
     }
   },
   "mcp": {

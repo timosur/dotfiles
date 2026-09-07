@@ -8,8 +8,17 @@ providers:
       return_images: false
     # Specify all models to use with the current provider
     models:
-      - id: bonsai-27b
-        name: Bonsai 27B (Ollama)
+      - id: qwen3-5-0-8b
+        name: Qwen 3.5 0.8B (Ollama)
+        provider: agentgw
+      - id: qwen3-5-9b
+        name: Qwen 3.5 9B (Ollama)
+        provider: agentgw
+      - id: qwen3-8-27b
+        name: Qwen 3.8 27B (Ollama)
+        provider: agentgw
+      - id: qwythos-9b-abliterated
+        name: Qwythos 9B Abliterated (Ollama)
         provider: agentgw
       - id: claude-fable-5-1
         name: Claude Fable 5.1 (Anthropic)

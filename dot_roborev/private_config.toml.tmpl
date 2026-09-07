@@ -7,17 +7,17 @@ review_guidelines = ''
 # Default agent when no workflow-specific agent is set.
 default_agent = 'opencode'
 default_backup_agent = 'opencode'
-default_backup_model = 'agentgw/gpt-5-6-sol-terra'
-default_model = 'agentgw/gpt-5-6-sol-terra'
-refine_model = 'agentgw/gpt-5-6-sol-terra'
-classify_model = 'agentgw/gpt-5-6-sol-terra'
+default_backup_model = 'agentgw/qwen3-5-0-8b'
+default_model = 'agentgw/qwen3-5-9b'
+refine_model = 'agentgw/qwen3-5-9b'
+classify_model = 'agentgw/qwen3-5-0-8b'
 # Default reasoning level for reviews: fast, standard, medium, thorough, or maximum.
 review_reasoning = 'medium'
 # Default reasoning level for refine: fast, standard, medium, thorough, or maximum.
 refine_reasoning = 'standard'
 # Default reasoning level for fix: fast, standard, medium, thorough, or maximum.
 fix_agent = 'opencode'
-fix_model = 'agentgw/gpt-5-6-sol-terra'
+fix_model = 'agentgw/qwen3-5-9b'
 fix_reasoning = 'standard'
 
 job_timeout_minutes = 30

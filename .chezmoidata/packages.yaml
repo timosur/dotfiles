@@ -13,6 +13,7 @@ packages:
     - dive
     - duf
     - fd
+    - font-hasklug-nerd-font
     - git
     - git-absorb
     - git-cliff

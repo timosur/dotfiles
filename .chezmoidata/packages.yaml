@@ -37,6 +37,7 @@ packages:
     - lsd
     - macchina
     - neovim
+    - opencode
     - openspec
     - pi-coding-agent
     - pinentry

@@ -14,6 +14,9 @@ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=0
 # git-age #
 {{- if eq .chezmoi.os "darwin" }}
 export GIT_AGE_AGENT_HOST="unix://{{ .chezmoi.homeDir }}/Library/Application Support/git-age-keyring-agent.sock"
+if agentgateway_inference_api_key="$(launchctl getenv AGENTGATEWAY_INFERENCE_API_KEY 2>/dev/null)" && [ -n "$agentgateway_inference_api_key" ]; then
+    export AGENTGATEWAY_INFERENCE_API_KEY="$agentgateway_inference_api_key"
+fi
 {{- else if eq .chezmoi.os "linux" }}
 export GIT_AGE_AGENT_HOST="unix:///run/user/{{ .chezmoi.uid }}/git-age-keyring-agent.sock"
 {{- end }}

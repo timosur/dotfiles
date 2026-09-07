@@ -13,7 +13,6 @@ packages:
     - dive
     - duf
     - fd
-    - font-hasklug-nerd-font
     - git
     - git-absorb
     - git-cliff
@@ -61,6 +60,7 @@ packages:
       - macmon
       - pinentry-mac
     casks:
+      - font-hasklug-nerd-font
       - httpie-desktop
       - ghostty
       - jordanbaird-ice

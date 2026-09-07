@@ -4,6 +4,13 @@ export PATH=$PATH:$HOME/.local/bin
 
 curl -sS https://starship.rs/install.sh | sudo sh -s -- --yes
 
+brew install rbw
+
+read -p "Vaultwarden E-Mail adress: " vaultemail
+
+rbw config set email "$vaultemail"
+rbw login
+
 which chezmoi 2>&1 > /dev/null || sudo sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
 
 chezmoi init --apply https://github.com/timosur/dotfiles.git

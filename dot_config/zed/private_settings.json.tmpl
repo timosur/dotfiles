@@ -20,21 +20,21 @@
   },
   "theme": {
     "mode": "dark",
-    "light": "Catppuccin Latte (Blur) [Heavy]",
-    "dark": "Catppuccin Frappé (Blur) [Heavy]"
+    "light": "One Light",
+    "dark": "One Dark Pro"
   },
   "icon_theme": {
     "mode": "light",
     "light": "Catppuccin Mocha",
     "dark": "Catppuccin Mocha"
   },
-  "agent_ui_font_family": "JetBrainsMono Nerd Font",
-  "buffer_font_family": "Cascadia Code",
+  "agent_ui_font_family": "Hasklug Nerd Font Mono",
+  "buffer_font_family": "Hasklug Nerd Font Mono",
   "buffer_font_features": {
     "liga": true,
     "calt": true
   },
-  "ui_font_family": "JetBrainsMono Nerd Font",
+  "ui_font_family": "Hasklug Nerd Font Mono",
   "outline_panel": {
     "dock": "right"
   },
@@ -249,7 +249,6 @@
   },
   "language_models": {
     "opencode": {
-      "show_free_models": false,
       "show_zen_models": false
     },
     "openai_compatible": {
@@ -258,31 +257,38 @@
         "available_models": [
           {
             "name": "qwen3-5-0-8b",
-            "display_name": "Qwen 3.5 0.8B (Ollama)"
+            "display_name": "Qwen 3.5 0.8B (Ollama)",
+            "max_tokens": 8192
           },
           {
             "name": "qwen3-5-9b",
-            "display_name": "Qwen 3.5 9B (Ollama)"
+            "display_name": "Qwen 3.5 9B (Ollama)",
+            "max_tokens": 8192
           },
           {
             "name": "qwen3-8-27b",
-            "display_name": "Qwen 3.8 27B (Ollama)"
+            "display_name": "Qwen 3.8 27B (Ollama)",
+            "max_tokens": 8192
           },
           {
             "name": "mythos-9b-unhinged",
-            "display_name": "Mythos 9B Unhinged (Ollama)"
+            "display_name": "Mythos 9B Unhinged (Ollama)",
+            "max_tokens": 8192
           },
           {
             "name": "claude-fable-5-1",
-            "display_name": "Claude Fable 5.1 (Anthropic)"
+            "display_name": "Claude Fable 5.1 (Anthropic)",
+            "max_tokens": 200000
           },
           {
             "name": "gpt-5-6-luna",
-            "display_name": "GPT-5.6 Luna (OpenAI)"
+            "display_name": "GPT-5.6 Luna (OpenAI)",
+            "max_tokens": 272000
           },
           {
             "name": "gpt-5-6-sol-terra",
-            "display_name": "GPT-5.6 Sol Terra (OpenAI)"
+            "display_name": "GPT-5.6 Sol Terra (OpenAI)",
+            "max_tokens": 272000
           }
         ]
       }

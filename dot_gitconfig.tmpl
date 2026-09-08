@@ -1,7 +1,7 @@
 [user]
 	email = {{ .email }}
 	name = {{ .name }}
-  signingkey = {{ if hasPrefix "ssh" .gpgSigningKey }}key::{{ .gpgSigningKey }}{{ else }}{{ .gpgSigningKey }}{{ end }}
+    signingkey = {{ if hasPrefix "ssh" .gpgSigningKey }}key::{{ .gpgSigningKey }}{{ else }}{{ .gpgSigningKey }}{{ end }}
 
 [alias]
   ll = "log --pretty=format:%C(blue)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate --date=short"

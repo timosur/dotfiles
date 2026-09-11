@@ -7,6 +7,7 @@
 {{ end }}
   "ssh_connections":{{- index $existingSettings "ssh_connections" | toPrettyJson | indent 2 -}},
   "project_panel": {
+    "dock": "right",
     "bold_folder_labels": false,
     "diagnostic_badges": true,
     "git_status_indicator": true
@@ -28,13 +29,13 @@
     "light": "Catppuccin Mocha",
     "dark": "Catppuccin Mocha"
   },
-  "agent_ui_font_family": "Hasklug Nerd Font Mono",
-  "buffer_font_family": "Hasklug Nerd Font Mono",
+  "agent_ui_font_family": "Menlo",
+  "buffer_font_family": "Menlo",
   "buffer_font_features": {
     "liga": true,
     "calt": true
   },
-  "ui_font_family": "Hasklug Nerd Font Mono",
+  "ui_font_family": "Menlo",
   "outline_panel": {
     "dock": "right"
   },
@@ -224,6 +225,11 @@
       }
     },
     "opencode": {
+      "default_config_options": {
+        "mode": "build",
+        "effort": "medium",
+        "model": "github-copilot/gpt-5.6-terra"
+      },
       "type": "registry"
     }
   },

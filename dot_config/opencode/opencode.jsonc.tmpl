@@ -1,9 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "autoupdate": false,
-  "plugin": ["@dietrichgebert/ponytail"],
+  "autoupdate": true,
+  "plugin": ["opencode-history-search", "@dietrichgebert/ponytail"],
   "provider": {
-    "agentgw": {
+    "azure": {
+      "models": {
+        "gpt-5.6-terra-VSCode": {
+          "name": "gpt-5.6-terra"
+        }
+      }
+    },
+    "agentgateway": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "Agent Gateway",
       "options": {
@@ -41,25 +48,11 @@
       },
     }
   },
+  "model": "github-copilot/gpt-5.6-terra",
   "agent": {
-    "local": {
-      "mode": "primary",
-      "description": "Read-only local Bonsai agent for small codebase questions.",
-      "model": "agentgw/qwen3-5-9b",
-      "steps": 3,
-      "permission": {
-        "*": "deny",
-        "read": "allow",
-        "glob": "allow",
-        "grep": "allow"
-      }
-    },
     "title": {
-      "model": "agentgw/qwen3-5-0-8b"
+      "model": "agentgateway/qwen3-5-0-8b"
     },
-    "compaction": {
-      "model": "agentgw/qwen3-5-0-8b"
-    }
   },
   "mcp": {
 {{- if hasSuffix "@rwe.com" .email }}
@@ -69,6 +62,15 @@
       "command": ["npx", "-y", "@azure-devops/mcp", "RWE-Renewables", "-a", "azcli"]
     },
 {{- end }}
+    "agentgateway": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.ai.home.timosur.com/mcp",
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer {env:AGENTGATEWAY_INFERENCE_API_KEY}"
+      }
+    },
     "gopls": {
       "type": "local",
       "enabled": false,
@@ -80,12 +82,41 @@
       "command": ["npx", "-y", "mcp-server-code-runner@latest"]
     }
   },
-  "lsp": {
-{{- if hasSuffix "@rwe.com" .email }}
-    "csharp": {
-      "disabled": false,
-      "command": ["csharp-ls"],
+  "lsp": true,
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "*rtk npx ctx7@latest *": "allow",
+      "*rtk git add*": "allow",
+      "*rtk git diff*": "allow",
+      "*rtk git status*": "allow",
+      "*rtk git log*": "allow",
+      "*rtk git branch*": "allow",
+      "*docker inspect*": "ask"
     },
-{{- end }}
+    "read": {
+      ".env": "ask",
+      "**/.env": "ask",
+      "*.env": "ask",
+      "**/*.env": "ask",
+      "*.env.*": "ask",
+      "**/*.env.*": "ask"
+    },
+    "glob": {
+      ".env": "ask",
+      "**/.env": "ask",
+      "*.env": "ask",
+      "**/*.env": "ask",
+      "*.env.*": "ask",
+      "**/*.env.*": "ask"
+    },
+    "grep": {
+      ".env": "ask",
+      "**/.env": "ask",
+      "*.env": "ask",
+      "**/*.env": "ask",
+      "*.env.*": "ask",
+      "**/*.env.*": "ask"
+    }
   }
 }

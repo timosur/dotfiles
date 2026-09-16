@@ -14,7 +14,11 @@ data:
 {{ else }}
   email: {{ promptString "email" | quote }}
 {{ end }}
+{{- if hasSuffix "@rwe.com" .email }}
+  gpgSigningKey: DA921710BC23196F
+{{ else }}
   gpgSigningKey: 6A245D38DC95C87A
-
+{{- end }}
 diff:
   command: delta
+sourceDir: "/Users/timosur/code/dotfiles"

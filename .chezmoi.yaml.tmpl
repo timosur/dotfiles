@@ -1,7 +1,7 @@
 {{- $isDevcontainer := env "DEVCONTAINER" | not | not -}}
 {{- $devcontainerType := env "DEVCONTAINER" -}}
 data:
-  name: "Timo Surmann"
+  name: "timosur"
 {{- if $isDevcontainer }}
   machineType: "devcontainer"
 {{- else if eq .chezmoi.os "darwin" }}
@@ -10,7 +10,7 @@ data:
   machineType: "ubuntu-server"
 {{- end }}
 {{- if $isDevcontainer }}
-  email: dev@timosur.com
+  email: github@timosur.com
 {{ else }}
   email: {{ promptString "email" | quote }}
 {{ end }}

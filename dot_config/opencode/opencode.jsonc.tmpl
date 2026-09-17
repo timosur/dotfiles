@@ -86,14 +86,16 @@
   "permission": {
     "bash": {
       "*": "ask",
+      "*docker inspect*": "ask",
       "*rtk git add*": "allow",
       "*rtk git diff*": "allow",
       "*rtk git status*": "allow",
       "*rtk git log*": "allow",
       "*rtk git branch*": "allow",
-      "*docker inspect*": "ask",
-      "opencode *": "allow",
+      "*rtk git show*": "allow",
+      "openspec *": "allow",
       "test *": "allow",
+      "ls": "allow",
       "npm run *": "allow",
       "uv run *": "allow",
       "docker compose ps": "allow",

@@ -50,6 +50,11 @@
       "alt-right": "editor::MoveToNextSubwordEnd",
       "shift-alt-left": "editor::SelectToPreviousSubwordStart",
       "shift-alt-right": "editor::SelectToNextSubwordEnd",
+      "alt-up": "editor::MoveLineUp",
+      "alt-down": "editor::MoveLineDown",
+      "alt-shift-down": "editor::DuplicateLineDown",
+      "alt-shift-up": "editor::DuplicateLineUp",
+      "cmd-d": "editor::DuplicateLineDown"
     },
   }
 ]

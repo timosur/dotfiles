@@ -86,13 +86,20 @@
   "permission": {
     "bash": {
       "*": "ask",
-      "*rtk npx ctx7@latest *": "allow",
       "*rtk git add*": "allow",
       "*rtk git diff*": "allow",
       "*rtk git status*": "allow",
       "*rtk git log*": "allow",
       "*rtk git branch*": "allow",
-      "*docker inspect*": "ask"
+      "*docker inspect*": "ask",
+      "opencode *": "allow",
+      "test *": "allow",
+      "npm run *": "allow",
+      "uv run *": "allow",
+      "docker compose ps": "allow",
+      "docker compose logs *": "allow",
+      "docker build *": "allow",
+      "npm run *": "allow",
     },
     "read": {
       ".env": "ask",

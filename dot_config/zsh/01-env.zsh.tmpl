@@ -11,10 +11,17 @@ export NVM_LAZY_LOAD=true
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=0
 # dotnet #
 
+# inference #
+{{- if eq .chezmoi.os "darwin" }}
+export AGENTGATEWAY_INFERENCE_API_KEY="{{ (rbw "AgentGateway").data.password }}"
+export AZURE_RESOURCE_NAME="{{ (rbw "AzureFoundry").data.username }}"
+export AZURE_API_KEY="{{ (rbw "AzureFoundry").data.password }}"
+{{- end }}
+# inference #
+
 # git-age #
 {{- if eq .chezmoi.os "darwin" }}
 export GIT_AGE_AGENT_HOST="unix://{{ .chezmoi.homeDir }}/Library/Application Support/git-age-keyring-agent.sock"
-export AGENTGATEWAY_INFERENCE_API_KEY="{{ (rbw "AgentGateway").data.password }}"
 {{- else if eq .chezmoi.os "linux" }}
 export GIT_AGE_AGENT_HOST="unix:///run/user/{{ .chezmoi.uid }}/git-age-keyring-agent.sock"
 {{- end }}

@@ -64,6 +64,7 @@ packages:
       - affine
       - bitwarden
       - font-hasklug-nerd-font
+      - freelens
       - httpie-desktop
       - ghostty
       - jordanbaird-ice

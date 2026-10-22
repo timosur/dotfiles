@@ -6,6 +6,6 @@
 
 font-family = "Hasklug Nerd Font"
 {{- if eq .chezmoi.os "darwin" }}
-macos-option-as-alt = "true"
+macos-option-as-alt = "false"
 {{- end }}
 link-url = "true"

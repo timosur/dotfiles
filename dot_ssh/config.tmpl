@@ -8,23 +8,42 @@ Host homelab-amd
     User timosur
     IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.100
+    SetEnv TERM=xterm-256color
 
 Host homelab-amd-desktop
     User timosur
     IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.241
+    SetEnv TERM=xterm-256color
 
 Host homelab-arm-large
     User timosur
     IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.54
+    SetEnv TERM=xterm-256color
 
 Host homelab-arm-small
     User timosur
     IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.124
+    SetEnv TERM=xterm-256color
 
 Host homelab-gpu
     User timosur
     IdentityFile ~/.ssh/id_rsa
     HostName 192.168.2.47
+    SetEnv TERM=xterm-256color
+
+# Platform Lab
+
+Host gx10
+    User resitotplatforms
+    HostName 10.42.40.246
+    IdentityFile ~/.ssh/id_rsa
+    SetEnv TERM=xterm-256color
+
+Host macmini
+    User itotplatformlab
+    HostName 10.42.40.224
+    IdentityFile ~/.ssh/id_rsa
+    SetEnv TERM=xterm-256color
